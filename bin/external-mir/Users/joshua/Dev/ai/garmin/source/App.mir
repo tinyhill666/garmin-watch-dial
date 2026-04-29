@@ -1,0 +1,41 @@
+[ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
+using Toybox.Application;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 4; @symbol_classdef = [App,4,6,9]; @symbol_extends<0> = [Application,4,18,29]; @symbol_extends<1> = [AppBase,4,30,37]; ]
+class App extends Application.AppBase {
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 4; ]
+    <init> {
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 4; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 5; @symbol_functiondef = [initialize,5,13,23]; ]
+    function initialize() as Void {
+_Users_joshua_Dev_ai_garmin_source_App_mc_5_26_7_4_start:
+[ "/Users/joshua/Dev/ai/garmin/source/App.mc" 6 8 ]
+        symbol [ AppBase %tmp.2 6 8 15 ];
+        %tmp.2 = getv ? :AppBase;
+        symbol [ initialize %tmp.3 6 16 26 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+_Users_joshua_Dev_ai_garmin_source_App_mc_5_26_7_4_stop:
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 9; @symbol_functiondef = [getInitialView,9,13,27]; ]
+    function getInitialView() {
+_Users_joshua_Dev_ai_garmin_source_App_mc_9_30_11_4_start:
+[ "/Users/joshua/Dev/ai/garmin/source/App.mc" 10 8 ]
+        %tmp.1 = newa 1;
+        symbol [ WatchFaceView %tmp.5 10 20 33 ];
+        %tmp.5 = getv ? :WatchFaceView;
+        %tmp.2 = newc %tmp.5 ();
+        %tmp.6 = dup %tmp.1;
+        %tmp.7 = aputv %tmp.6 0 %tmp.2;
+        ret %tmp.7;
+_Users_joshua_Dev_ai_garmin_source_App_mc_9_30_11_4_stop:
+    }
+}
+[ @file = "/Users/joshua/Dev/ai/garmin/source/App.mc"; @line = 1; ]
+<init> {
+}

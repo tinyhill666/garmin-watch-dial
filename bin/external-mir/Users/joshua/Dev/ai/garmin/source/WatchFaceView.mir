@@ -1,0 +1,250 @@
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [WatchUi,1,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Graphics,2,13,21]; ]
+using Toybox.Graphics;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [System,3,13,19]; ]
+using Toybox.System;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Time,4,13,17]; ]
+using Toybox.Time;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Time,5,13,17]; @symbol_usingdef<2> = [Gregorian,5,18,27]; ]
+using Toybox.Time.Gregorian;
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 7; @symbol_classdef = [WatchFaceView,7,6,19]; @symbol_extends<0> = [WatchUi,7,28,35]; @symbol_extends<1> = [WatchFace,7,36,45]; ]
+class WatchFaceView extends WatchUi.WatchFace {
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 8; @position = 15; @symbol_vardef = [_timeStr,8,15,23]; ]
+    protected
+    var _timeStr = "00:00";
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 9; @position = 15; @symbol_vardef = [_dateStr,9,15,23]; ]
+    protected
+    var _dateStr = "";
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 11; @symbol_functiondef = [initialize,11,13,23]; ]
+    function initialize() as Void {
+_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_11_26_13_4_start:
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 12 8 ]
+        symbol [ WatchFace %tmp.2 12 8 17 ];
+        %tmp.2 = getv ? :WatchFace;
+        symbol [ initialize %tmp.3 12 18 28 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_11_26_13_4_stop:
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 15; @symbol_functiondef = [onLayout,15,13,21]; @symbol_param<0> = [dc,15,22,24]; ]
+    function onLayout(dc) {
+    }
+    [ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 19; @symbol_functiondef = [onUpdate,19,13,21]; @symbol_param<0> = [dc,19,22,24]; ]
+    function onUpdate(dc) {
+_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_start:
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 20 8 ]
+        [ "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_start" "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 20 12 15 ];
+        symbol [ Time %tmp.1 20 18 22 ];
+        %tmp.1 = getm $.Toybox.Time;
+        symbol [ now %tmp.2 20 23 26 ];
+        %tmp.2 = getv function %tmp.1 :now;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %now.1 %tmp.3;
+        symbol [ now %now.1 20 12 15 ];
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 21 8 ]
+        [ "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_start" "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_stop" ]
+        %info.2 = local;
+        symbol [ info %info.2 21 12 16 ];
+        symbol [ Gregorian %tmp.4 21 19 28 ];
+        %tmp.4 = getm $.Toybox.Time.Gregorian;
+        symbol [ info %tmp.5 21 29 33 ];
+        %tmp.5 = getv function %tmp.4 :info;
+        %tmp.6 = lgetv %now.1;
+        symbol [ now %tmp.6 21 34 37 ];
+        symbol [ Time %tmp.7 21 39 43 ];
+        %tmp.7 = getm $.Toybox.Time;
+        symbol [ FORMAT_SHORT %tmp.8 21 44 56 ];
+        %tmp.8 = getv %tmp.7 :FORMAT_SHORT;
+        %tmp.9 = invoke %tmp.4 %tmp.5(%tmp.6, %tmp.8);
+        lputv %info.2 %tmp.9;
+        symbol [ info %info.2 21 12 16 ];
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 23 8 ]
+        symbol [ Lang %tmp.11 23 19 23 ];
+        %tmp.11 = getv ? :Lang;
+        symbol [ format %tmp.12 23 24 30 ];
+        %tmp.12 = getv function %tmp.11 :format;
+        %tmp.13 = "$1$:$2$";
+        %tmp.14 = newa 2;
+        %tmp.15 = lgetv %info.2;
+        symbol [ info %tmp.15 24 12 16 ];
+        symbol [ hour %tmp.16 24 17 21 ];
+        %tmp.16 = getv %tmp.15 :hour;
+        symbol [ format %tmp.17 24 22 28 ];
+        %tmp.17 = getv function %tmp.16 :format;
+        %tmp.18 = "%02d";
+        %tmp.19 = invoke %tmp.16 %tmp.17(%tmp.18);
+        %tmp.20 = dup %tmp.14;
+        %tmp.21 = aputv %tmp.20 0 %tmp.19;
+        %tmp.22 = lgetv %info.2;
+        symbol [ info %tmp.22 25 12 16 ];
+        symbol [ min %tmp.23 25 17 20 ];
+        %tmp.23 = getv %tmp.22 :min;
+        symbol [ format %tmp.24 25 21 27 ];
+        %tmp.24 = getv function %tmp.23 :format;
+        %tmp.25 = "%02d";
+        %tmp.26 = invoke %tmp.23 %tmp.24(%tmp.25);
+        %tmp.27 = dup %tmp.21;
+        %tmp.28 = aputv %tmp.27 1 %tmp.26;
+        %tmp.29 = invoke %tmp.11 %tmp.12(%tmp.13, %tmp.28);
+        symbol [ _timeStr ? 23 8 16 ];
+        putv self :_timeStr %tmp.29;
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 28 8 ]
+        symbol [ Lang %tmp.31 28 19 23 ];
+        %tmp.31 = getv ? :Lang;
+        symbol [ format %tmp.32 28 24 30 ];
+        %tmp.32 = getv function %tmp.31 :format;
+        %tmp.33 = "$1$/$2$";
+        %tmp.34 = newa 2;
+        %tmp.35 = lgetv %info.2;
+        symbol [ info %tmp.35 29 12 16 ];
+        symbol [ month %tmp.36 29 17 22 ];
+        %tmp.36 = getv %tmp.35 :month;
+        symbol [ format %tmp.37 29 23 29 ];
+        %tmp.37 = getv function %tmp.36 :format;
+        %tmp.38 = "%02d";
+        %tmp.39 = invoke %tmp.36 %tmp.37(%tmp.38);
+        %tmp.40 = dup %tmp.34;
+        %tmp.41 = aputv %tmp.40 0 %tmp.39;
+        %tmp.42 = lgetv %info.2;
+        symbol [ info %tmp.42 30 12 16 ];
+        symbol [ day %tmp.43 30 17 20 ];
+        %tmp.43 = getv %tmp.42 :day;
+        symbol [ format %tmp.44 30 21 27 ];
+        %tmp.44 = getv function %tmp.43 :format;
+        %tmp.45 = "%02d";
+        %tmp.46 = invoke %tmp.43 %tmp.44(%tmp.45);
+        %tmp.47 = dup %tmp.41;
+        %tmp.48 = aputv %tmp.47 1 %tmp.46;
+        %tmp.49 = invoke %tmp.31 %tmp.32(%tmp.33, %tmp.48);
+        symbol [ _dateStr ? 28 8 16 ];
+        putv self :_dateStr %tmp.49;
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 33 8 ]
+        %tmp.50 = lgetv %dc;
+        symbol [ dc %tmp.50 33 8 10 ];
+        symbol [ setColor %tmp.51 33 11 19 ];
+        %tmp.51 = getv function %tmp.50 :setColor;
+        symbol [ Graphics %tmp.52 33 20 28 ];
+        %tmp.52 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.53 33 29 40 ];
+        %tmp.53 = getv %tmp.52 :COLOR_BLACK;
+        symbol [ Graphics %tmp.54 33 42 50 ];
+        %tmp.54 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.55 33 51 62 ];
+        %tmp.55 = getv %tmp.54 :COLOR_BLACK;
+        invoke %tmp.50 %tmp.51(%tmp.53, %tmp.55);
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 34 8 ]
+        %tmp.56 = lgetv %dc;
+        symbol [ dc %tmp.56 34 8 10 ];
+        symbol [ clear %tmp.57 34 11 16 ];
+        %tmp.57 = getv function %tmp.56 :clear;
+        invoke %tmp.56 %tmp.57();
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 36 8 ]
+        %tmp.58 = lgetv %dc;
+        symbol [ dc %tmp.58 36 8 10 ];
+        symbol [ setColor %tmp.59 36 11 19 ];
+        %tmp.59 = getv function %tmp.58 :setColor;
+        symbol [ Graphics %tmp.60 36 20 28 ];
+        %tmp.60 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.61 36 29 40 ];
+        %tmp.61 = getv %tmp.60 :COLOR_WHITE;
+        symbol [ Graphics %tmp.62 36 42 50 ];
+        %tmp.62 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.63 36 51 68 ];
+        %tmp.63 = getv %tmp.62 :COLOR_TRANSPARENT;
+        invoke %tmp.58 %tmp.59(%tmp.61, %tmp.63);
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 37 8 ]
+        [ "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_start" "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_stop" ]
+        %cx.3 = local;
+        symbol [ cx %cx.3 37 12 14 ];
+        %tmp.64 = lgetv %dc;
+        symbol [ dc %tmp.64 37 17 19 ];
+        symbol [ getWidth %tmp.65 37 20 28 ];
+        %tmp.65 = getv function %tmp.64 :getWidth;
+        %tmp.66 = invoke %tmp.64 %tmp.65();
+        %tmp.67 = 2;
+        %tmp.68 = div %tmp.66 %tmp.67;
+        lputv %cx.3 %tmp.68;
+        symbol [ cx %cx.3 37 12 14 ];
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 38 8 ]
+        [ "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_start" "_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_stop" ]
+        %cy.4 = local;
+        symbol [ cy %cy.4 38 12 14 ];
+        %tmp.69 = lgetv %dc;
+        symbol [ dc %tmp.69 38 17 19 ];
+        symbol [ getHeight %tmp.70 38 20 29 ];
+        %tmp.70 = getv function %tmp.69 :getHeight;
+        %tmp.71 = invoke %tmp.69 %tmp.70();
+        %tmp.72 = 2;
+        %tmp.73 = div %tmp.71 %tmp.72;
+        lputv %cy.4 %tmp.73;
+        symbol [ cy %cy.4 38 12 14 ];
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 39 8 ]
+        %tmp.74 = lgetv %dc;
+        symbol [ dc %tmp.74 39 8 10 ];
+        symbol [ drawText %tmp.75 39 11 19 ];
+        %tmp.75 = getv function %tmp.74 :drawText;
+        %tmp.76 = lgetv %cx.3;
+        symbol [ cx %tmp.76 39 20 22 ];
+        %tmp.77 = lgetv %cy.4;
+        symbol [ cy %tmp.77 39 24 26 ];
+        %tmp.78 = 30;
+        %tmp.79 = sub %tmp.77 %tmp.78;
+        symbol [ Graphics %tmp.80 39 33 41 ];
+        %tmp.80 = getm $.Toybox.Graphics;
+        symbol [ FONT_NUMBER_HOT %tmp.81 39 42 57 ];
+        %tmp.81 = getv %tmp.80 :FONT_NUMBER_HOT;
+        symbol [ _timeStr %tmp.83 39 59 67 ];
+        %tmp.83 = getv ? :_timeStr;
+        symbol [ Graphics %tmp.84 39 69 77 ];
+        %tmp.84 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.85 39 78 97 ];
+        %tmp.85 = getv %tmp.84 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.86 39 100 108 ];
+        %tmp.86 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.87 39 109 129 ];
+        %tmp.87 = getv %tmp.86 :TEXT_JUSTIFY_VCENTER;
+        %tmp.88 = bitor %tmp.85 %tmp.87;
+        invoke %tmp.74 %tmp.75(%tmp.76, %tmp.79, %tmp.81, %tmp.83, %tmp.88);
+[ "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" 40 8 ]
+        %tmp.89 = lgetv %dc;
+        symbol [ dc %tmp.89 40 8 10 ];
+        symbol [ drawText %tmp.90 40 11 19 ];
+        %tmp.90 = getv function %tmp.89 :drawText;
+        %tmp.91 = lgetv %cx.3;
+        symbol [ cx %tmp.91 40 20 22 ];
+        %tmp.92 = lgetv %cy.4;
+        symbol [ cy %tmp.92 40 24 26 ];
+        %tmp.93 = 30;
+        %tmp.94 = add %tmp.92 %tmp.93;
+        symbol [ Graphics %tmp.95 40 33 41 ];
+        %tmp.95 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.96 40 42 52 ];
+        %tmp.96 = getv %tmp.95 :FONT_SMALL;
+        symbol [ _dateStr %tmp.98 40 54 62 ];
+        %tmp.98 = getv ? :_dateStr;
+        symbol [ Graphics %tmp.99 40 64 72 ];
+        %tmp.99 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.100 40 73 92 ];
+        %tmp.100 = getv %tmp.99 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.101 40 95 103 ];
+        %tmp.101 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.102 40 104 124 ];
+        %tmp.102 = getv %tmp.101 :TEXT_JUSTIFY_VCENTER;
+        %tmp.103 = bitor %tmp.100 %tmp.102;
+        invoke %tmp.89 %tmp.90(%tmp.91, %tmp.94, %tmp.96, %tmp.98, %tmp.103);
+_Users_joshua_Dev_ai_garmin_source_WatchFaceView_mc_19_26_41_4_stop:
+    }
+}
+[ @file = "/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc"; @line = 1; ]
+<init> {
+}
