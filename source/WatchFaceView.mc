@@ -1,42 +1,322 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.System;
+using Toybox.Lang;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
+using Toybox.Activity;
+using Toybox.ActivityMonitor;
+using Toybox.Weather;
 
+// «TEMPO» v6：参考用户提供的目标设计
+// 双色大字时间（时白分绿，无冒号）+ 顶行心率/电池 + 日期行（日数绿）+ 底部三格（天气/步数/卡路里）
 class WatchFaceView extends WatchUi.WatchFace {
-    hidden var _timeStr = "00:00";
-    hidden var _dateStr = "";
+    // 调色板（RGB222）
+    const COLOR_ACCENT = 0x55FF00;  // 主点缀绿：分钟、日期中的日数、电池高电量
+    const COLOR_BLUE = 0x00AAFF;    // 雨天图标、身体电量闪电
+    const COLOR_RED = 0xFF0000;     // 心形、电池低电量
+    const COLOR_YELLOW = 0xFFFF00;  // 电池中档
+    const COLOR_AMBER = 0xFFAA00;   // 太阳图标
+    const COLOR_ORANGE = 0xFF5500;  // 火焰图标
+    const COLOR_DIM = 0xAAAAAA;     // 秒、电池描边、无值占位
+    const COLOR_LINE = 0x555555;    // 底部分隔线
+
+    hidden var _weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    hidden var _months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+                          "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+    hidden var _fontTime = null;
+    hidden var _fontData = null;
+    hidden var _fontSec = null;
+    hidden var _fontIcons = null;
+
+    // 时间行布局（等宽数字，onLayout 一次算好）
+    hidden var _digitW2 = 0;   // 「88」宽
+    hidden var _hourX = 0;     // 时右缘（RIGHT 锚点）
+    hidden var _minX = 0;      // 分左缘（LEFT 锚点）
+    hidden var _secX = 0;
+    hidden var _secY = 0;
+    hidden var _secClipY = 0;
+    hidden var _secClipW = 0;
+    hidden var _secClipH = 0;
+
+    const TIME_Y = 108;
+    const TIME_GAP = 6;
 
     function initialize() {
         WatchFace.initialize();
     }
 
     function onLayout(dc) {
-        // 加载资源
+        _fontTime = WatchUi.loadResource(Rez.Fonts.TimeFont);
+        _fontData = WatchUi.loadResource(Rez.Fonts.DataFont);
+        _fontSec = WatchUi.loadResource(Rez.Fonts.SecondsFont);
+        _fontIcons = WatchUi.loadResource(Rez.Fonts.IconsFont);
+
+        _digitW2 = dc.getTextWidthInPixels("88", _fontTime);
+        _secClipW = dc.getTextWidthInPixels("88", _fontSec) + 2;
+
+        // 时+分+秒作为整体水平居中（92px 数字 + 20px 秒，总宽 ≈234，圆界内安全）
+        var total = _digitW2 * 2 + TIME_GAP + 4 + _secClipW;
+        var left = 130 - total / 2;
+        if (left < 12) {
+            left = 12;
+        }
+        _hourX = left + _digitW2;
+        _minX = _hourX + TIME_GAP;
+        _secX = _minX + _digitW2 + 4;
+
+        // 秒底缘与时间数字底缘对齐：92px 字形底 ≈ TIME_Y+37.5，20px 秒字形底 = 锚点+8.5
+        _secY = TIME_Y + 29;
+        _secClipH = 20;
+        _secClipY = _secY - 10;
     }
 
     function onUpdate(dc) {
-        var now = Time.now();
-        var info = Gregorian.info(now, Time.FORMAT_SHORT);
+        var clock = System.getClockTime();
+        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var actInfo = ActivityMonitor.getInfo();
 
-        _timeStr = Lang.format("$1$:$2$", [
-            info.hour.format("%02d"),
-            info.min.format("%02d")
-        ]);
-
-        _dateStr = Lang.format("$1$/$2$", [
-            info.month.format("%02d"),
-            info.day.format("%02d")
-        ]);
+        if (dc has :setAntiAlias) {
+            dc.setAntiAlias(true);
+        }
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
 
+        // ── 顶行：心率组（左）+ 电池图标（右）
+        var hr = getHeartRate();
+        var hrStr = (hr == null) ? "--" : hr.format("%d");
+        // 左右两组关于中轴对称锚定（组中心 98 / 172），垂直共线（中心 41）
+        var hrW = dc.getTextWidthInPixels(hrStr, _fontData);
+        var hx = 98 - (22 + 4 + hrW) / 2;
+        dc.setColor(COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(hx, 31, _fontIcons, "H", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.setColor(hr == null ? COLOR_DIM : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(hx + 26, 41, _fontData, hrStr,
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        drawBattery(dc, 156, 34);
+
+        // ── 时间：时（白，右对齐至中缝）+ 分（绿，左对齐自中缝），无冒号
+        var hour = clock.hour;
+        if (!System.getDeviceSettings().is24Hour) {
+            hour = hour % 12;
+            if (hour == 0) {
+                hour = 12;
+            }
+        }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        var cx = dc.getWidth() / 2;
-        var cy = dc.getHeight() / 2;
-        dc.drawText(cx, cy - 30, Graphics.FONT_NUMBER_HOT, _timeStr, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.drawText(cx, cy + 30, Graphics.FONT_SMALL, _dateStr, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(_hourX, TIME_Y, _fontTime, hour.format("%02d"),
+            Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(COLOR_ACCENT, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_minX, TIME_Y, _fontTime, clock.min.format("%02d"),
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        drawSeconds(dc, clock.sec);
+
+        // ── 日期行：FRI 3 JUL，日数用点缀绿
+        var s1 = _weekdays[info.day_of_week - 1] + " ";
+        var s2 = info.day.format("%d");
+        var s3 = " " + _months[info.month - 1];
+        var w1 = dc.getTextWidthInPixels(s1, _fontData);
+        var w2 = dc.getTextWidthInPixels(s2, _fontData);
+        var w3 = dc.getTextWidthInPixels(s3, _fontData);
+        var dx = 130 - (w1 + w2 + w3) / 2;
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(dx, 168, _fontData, s1,
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(COLOR_ACCENT, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(dx + w1, 168, _fontData, s2,
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(dx + w1 + w2, 168, _fontData, s3,
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        // ── 底部三格：天气 | 步数 | 卡路里，细线分隔
+        dc.setPenWidth(1);
+        dc.setColor(COLOR_LINE, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(97, 188, 97, 232);
+        dc.drawLine(163, 188, 163, 232);
+
+        // 格1：天气（图标随天气状况切换 + 温度）
+        var tempStr = "--°";
+        var wIcon = "O";
+        var cond = Weather.getCurrentConditions();
+        if (cond != null) {
+            if (cond.temperature != null) {
+                tempStr = cond.temperature.format("%d") + "°";
+            }
+            wIcon = weatherIcon(cond.condition);
+        }
+        dc.setColor(weatherColor(wIcon), Graphics.COLOR_TRANSPARENT);
+        dc.drawText(72, 190, _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(72, 224, _fontData, tempStr,
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        // 格2：步数（足迹 + 值）
+        var steps = (actInfo != null && actInfo.steps != null) ? actInfo.steps : 0;
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(130, 190, _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(130, 224, _fontData, steps.format("%d"),
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        // 格3：压力值（仪表图标 + 值）
+        var stress = getStress();
+        dc.setColor(COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(188, 190, _fontIcons, "X", Graphics.TEXT_JUSTIFY_CENTER);
+        if (stress == null) {
+            dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(188, 224, _fontData, "--",
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        } else {
+            dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(188, 224, _fontData, stress.format("%d"),
+                Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+    }
+
+    // 每秒回调（低功耗模式），只重绘秒区域
+    function onPartialUpdate(dc) {
+        drawSeconds(dc, System.getClockTime().sec);
+    }
+
+    hidden function drawSeconds(dc, sec) {
+        dc.setClip(_secX, _secClipY, _secClipW, _secClipH);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        dc.clear();
+        dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(_secX, _secY, _fontSec, sec.format("%02d"),
+            Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.clearClip();
+    }
+
+    // 电池纯图标：外框 30x15 + 触点，填充按比例、绿/黄/红三档
+    hidden function drawBattery(dc, x, y) {
+        var batt = System.getSystemStats().battery.toNumber();
+        dc.setPenWidth(2);
+        dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
+        dc.drawRoundedRectangle(x, y, 30, 15, 4);
+        dc.setPenWidth(1);
+        dc.fillRectangle(x + 30, y + 4, 3, 7);
+        var fillW = (24 * batt + 50) / 100;
+        if (batt > 0 && fillW < 1) {
+            fillW = 1;
+        }
+        if (fillW > 0) {
+            var battColor = COLOR_ACCENT;
+            if (batt <= 20) {
+                battColor = COLOR_RED;
+            } else if (batt <= 50) {
+                battColor = COLOR_YELLOW;
+            }
+            dc.setColor(battColor, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(x + 3, y + 3, fillW, 9);
+        }
+    }
+
+    // 天气状况 → 图标字符：S晴 P少云 O阴 R雨 W雪 T雷 G雾
+    hidden function weatherIcon(c) {
+        if (c == null) {
+            return "O";
+        }
+        if (c == Weather.CONDITION_CLEAR || c == Weather.CONDITION_FAIR
+            || c == Weather.CONDITION_MOSTLY_CLEAR || c == Weather.CONDITION_WINDY) {
+            return "S";
+        }
+        if (c == Weather.CONDITION_PARTLY_CLOUDY || c == Weather.CONDITION_PARTLY_CLEAR
+            || c == Weather.CONDITION_THIN_CLOUDS) {
+            return "P";
+        }
+        if (c == Weather.CONDITION_THUNDERSTORMS || c == Weather.CONDITION_SCATTERED_THUNDERSTORMS
+            || c == Weather.CONDITION_CHANCE_OF_THUNDERSTORMS || c == Weather.CONDITION_TROPICAL_STORM
+            || c == Weather.CONDITION_HURRICANE || c == Weather.CONDITION_TORNADO
+            || c == Weather.CONDITION_SQUALL) {
+            return "T";
+        }
+        if (c == Weather.CONDITION_SNOW || c == Weather.CONDITION_LIGHT_SNOW
+            || c == Weather.CONDITION_HEAVY_SNOW || c == Weather.CONDITION_CHANCE_OF_SNOW
+            || c == Weather.CONDITION_FLURRIES || c == Weather.CONDITION_WINTRY_MIX
+            || c == Weather.CONDITION_RAIN_SNOW || c == Weather.CONDITION_LIGHT_RAIN_SNOW
+            || c == Weather.CONDITION_HEAVY_RAIN_SNOW || c == Weather.CONDITION_CHANCE_OF_RAIN_SNOW
+            || c == Weather.CONDITION_CLOUDY_CHANCE_OF_SNOW || c == Weather.CONDITION_CLOUDY_CHANCE_OF_RAIN_SNOW
+            || c == Weather.CONDITION_ICE || c == Weather.CONDITION_ICE_SNOW
+            || c == Weather.CONDITION_SLEET || c == Weather.CONDITION_HAIL
+            || c == Weather.CONDITION_FREEZING_RAIN) {
+            return "W";
+        }
+        if (c == Weather.CONDITION_RAIN || c == Weather.CONDITION_LIGHT_RAIN
+            || c == Weather.CONDITION_HEAVY_RAIN || c == Weather.CONDITION_DRIZZLE
+            || c == Weather.CONDITION_SHOWERS || c == Weather.CONDITION_LIGHT_SHOWERS
+            || c == Weather.CONDITION_HEAVY_SHOWERS || c == Weather.CONDITION_SCATTERED_SHOWERS
+            || c == Weather.CONDITION_CHANCE_OF_SHOWERS || c == Weather.CONDITION_CLOUDY_CHANCE_OF_RAIN
+            || c == Weather.CONDITION_UNKNOWN_PRECIPITATION) {
+            return "R";
+        }
+        if (c == Weather.CONDITION_FOG || c == Weather.CONDITION_MIST
+            || c == Weather.CONDITION_HAZE || c == Weather.CONDITION_HAZY
+            || c == Weather.CONDITION_SMOKE || c == Weather.CONDITION_DUST
+            || c == Weather.CONDITION_SAND || c == Weather.CONDITION_SANDSTORM
+            || c == Weather.CONDITION_VOLCANIC_ASH) {
+            return "G";
+        }
+        return "O";
+    }
+
+    hidden function weatherColor(icon) {
+        if (icon.equals("S") || icon.equals("P")) {
+            return COLOR_AMBER;
+        }
+        if (icon.equals("R")) {
+            return COLOR_BLUE;
+        }
+        if (icon.equals("T")) {
+            return COLOR_YELLOW;
+        }
+        if (icon.equals("W")) {
+            return Graphics.COLOR_WHITE;
+        }
+        return COLOR_DIM;
+    }
+
+    // 压力值：最近一次采样
+    hidden function getStress() {
+        if ((Toybox has :SensorHistory) && (Toybox.SensorHistory has :getStressHistory)) {
+            var it = Toybox.SensorHistory.getStressHistory({:period => 1});
+            if (it != null) {
+                var sample = it.next();
+                if (sample != null && sample.data != null) {
+                    return sample.data.toNumber();
+                }
+            }
+        }
+        return null;
+    }
+
+    hidden function getHeartRate() {
+        var hr = null;
+        var ai = Activity.getActivityInfo();
+        if (ai != null) {
+            hr = ai.currentHeartRate;
+        }
+        if (hr == null) {
+            var hist = ActivityMonitor.getHeartRateHistory(1, true);
+            if (hist != null) {
+                var sample = hist.next();
+                if (sample != null && sample.heartRate != ActivityMonitor.INVALID_HR_SAMPLE) {
+                    hr = sample.heartRate;
+                }
+            }
+        }
+        return hr;
+    }
+
+    function onExitSleep() {
+        WatchUi.requestUpdate();
+    }
+
+    function onEnterSleep() {
+        WatchUi.requestUpdate();
     }
 }

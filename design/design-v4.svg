@@ -1,0 +1,58 @@
+<svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- ================= TEMPO watch face v4 / fr955 260x260 =================
+       示例数据: 10:09:36 · HR 128 · Battery 68% · Steps 8456/10000 · WED 2 JUL
+       字体: Barlow Condensed (Bold 700 时 / Light 300 分 / SemiBold 600 数据)
+       调色板(RGB222): #000000 #FFFFFF #AAAAAA #555555 #00AAFF #FF0000 #00FF55 #FFFF00 -->
+
+  <!-- 屏幕: 黑色正圆 -->
+  <circle cx="130" cy="130" r="130" fill="#000000"/>
+
+  <!-- 步数目标进度弧: r=120 pen8, 10 段(6.5°/隙1.65°) 230°-309.85°, 8456/10000 → 8 亮 2 灭 -->
+  <g fill="none" stroke-width="8" stroke-linecap="butt">
+    <path d="M 52.86 221.92 A 120 120 0 0 0 63.77 230.07" stroke="#00AAFF"/>
+    <path d="M 66.70 231.95 A 120 120 0 0 0 78.59 238.43" stroke="#00AAFF"/>
+    <path d="M 81.77 239.88 A 120 120 0 0 0 94.52 244.64" stroke="#00AAFF"/>
+    <path d="M 97.84 245.61 A 120 120 0 0 0 111.12 248.50" stroke="#00AAFF"/>
+    <path d="M 114.54 249.00 A 120 120 0 0 0 128.12 249.99" stroke="#00AAFF"/>
+    <path d="M 131.57 249.99 A 120 120 0 0 0 145.14 249.04" stroke="#00AAFF"/>
+    <path d="M 148.56 248.56 A 120 120 0 0 0 161.87 245.69" stroke="#00AAFF"/>
+    <path d="M 165.18 244.72 A 120 120 0 0 0 177.94 240.00" stroke="#00AAFF"/>
+    <path d="M 181.10 238.58 A 120 120 0 0 0 193.06 232.10" stroke="#555555"/>
+    <path d="M 195.98 230.24 A 120 120 0 0 0 206.90 222.11" stroke="#555555"/>
+  </g>
+
+  <g font-family="'Barlow Condensed','Avenir Next Condensed','Arial Narrow',sans-serif">
+
+    <!-- 顶部指示组 y=34: 心形(86,25) + 心率值(轴心130) + 电池(156-181) -->
+    <path d="M 95 41 C 89.6 36.5 86 33.35 86 30.02 C 86 27.41 87.98 25.7 90.32 25.7
+             C 92.21 25.7 94.01 26.78 95 28.4 C 95.99 26.78 97.79 25.7 99.68 25.7
+             C 102.02 25.7 104 27.41 104 30.02 C 104 33.35 100.4 36.5 95 41 Z" fill="#FF0000"/>
+    <text x="130" y="44" text-anchor="middle" font-size="28" font-weight="600" fill="#FFFFFF">128</text>
+    <rect x="156" y="28" width="22" height="12" rx="3" fill="none" stroke="#AAAAAA" stroke-width="2"/>
+    <rect x="159" y="31" width="11" height="6" fill="#00FF55"/>
+    <rect x="179" y="31" width="3" height="6" fill="#AAAAAA"/>
+
+    <!-- 日期行: WED 2 JUL, 28px 白, 居中 (130,62) -->
+    <text x="130" y="72" text-anchor="middle" font-size="28" font-weight="600" fill="#FFFFFF">WED 2 JUL</text>
+
+    <!-- 时间行: Bold「10:」+ Light「09」同基线, 整组居中 (130,126), 100px -->
+    <text x="130" y="162" text-anchor="middle" font-size="100" fill="#FFFFFF"><tspan
+      font-weight="700">10</tspan><tspan font-weight="300">:09</tspan></text>
+
+    <!-- 秒: 28px 灰, 右对齐至时间右缘 (226,180); 刷新矩形 (196,165,34,30) -->
+    <text x="226" y="190" text-anchor="end" font-size="28" font-weight="600" fill="#AAAAAA">36</text>
+
+    <!-- 步数组: 足迹图标(91,201 起) + 值(117,212), 成组居中 -->
+    <text x="117" y="222" text-anchor="start" font-size="28" font-weight="600" fill="#FFFFFF">8456</text>
+  </g>
+
+  <!-- 足迹图标 #00AAFF: 双脚印, 右印高 7px -->
+  <g fill="#00AAFF">
+    <ellipse cx="96" cy="216" rx="3.4" ry="5.4"/>
+    <circle cx="94.2" cy="207.6" r="1.7"/>
+    <circle cx="98" cy="206.9" r="1.2"/>
+    <ellipse cx="105.8" cy="209" rx="3.4" ry="5.4"/>
+    <circle cx="104" cy="200.6" r="1.7"/>
+    <circle cx="107.8" cy="200" r="1.2"/>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- ================= AXIS watch face v2 / fr955 260x260 =================
+       示例数据: 10:09:36 · HR 128 · Battery 68% · Steps 8456/10000 · WED 7/2
+       调色板(RGB222): #000000 #FFFFFF #AAAAAA #555555 #00AAFF #FF5500 -->
+
+  <!-- 屏幕: 黑色正圆 -->
+  <circle cx="130" cy="130" r="130" fill="#000000"/>
+
+  <!-- 步数进度弧 (r=118 中心线, pen 8): 轨道 220°-320°, 进度 84.6% -->
+  <path d="M 39.61 205.85 A 118 118 0 0 0 220.39 205.85"
+        fill="none" stroke="#555555" stroke-width="8" stroke-linecap="butt"/>
+  <path d="M 39.61 205.85 A 118 118 0 0 0 196.97 227.16"
+        fill="none" stroke="#00AAFF" stroke-width="8" stroke-linecap="butt"/>
+
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">
+
+    <!-- 顶带: 周几(蓝, 右对齐至 x=124) · 分隔点 · 日期(白, 左对齐自 x=136), vcenter y=40 -->
+    <text x="124" y="48" text-anchor="end" font-size="22" fill="#00AAFF">WED</text>
+    <text x="136" y="48" text-anchor="start" font-size="22" fill="#FFFFFF">7/2</text>
+
+    <!-- 主时间 HH:MM, FONT_NUMBER_MEDIUM(~66px), 居中锚点 (130,118) -->
+    <text x="130" y="142" text-anchor="middle" font-size="66" fill="#FFFFFF">10:09</text>
+
+    <!-- 秒, FONT_TINY, 左对齐锚点 (222,138), 底边与时间对齐; 刷新区 (220,124,34,28) -->
+    <text x="222" y="146" text-anchor="start" font-size="22" fill="#AAAAAA">36</text>
+
+    <!-- 数据行 y=180: 电量数字(右对齐至 x=98) | 电池图标 | 心形图标 | 心率(左对齐自 x=158) -->
+    <text x="98" y="189" text-anchor="end" font-size="27" fill="#FFFFFF">68%</text>
+    <text x="158" y="189" text-anchor="start" font-size="27" fill="#FFFFFF">128</text>
+
+    <!-- 步数, FONT_SMALL, 居中锚点 (130,214) -->
+    <text x="130" y="223" text-anchor="middle" font-size="27" fill="#FFFFFF">8456</text>
+  </g>
+
+  <!-- 顶带分隔点 -->
+  <circle cx="130" cy="41" r="2" fill="#555555"/>
+
+  <!-- 电池图标: 外框(104,173,18,14,r3) + 电量条(107,176, 12*68%=8, 8) + 触点(122,177,3,6) -->
+  <rect x="104" y="173" width="18" height="14" rx="3" fill="none" stroke="#AAAAAA" stroke-width="2"/>
+  <rect x="107" y="176" width="8" height="8" fill="#FFFFFF"/>
+  <rect x="123" y="177" width="3" height="6" fill="#AAAAAA"/>
+
+  <!-- 心形图标 #FF5500: 双圆(140/148,177,r4) + 三角(136,178)-(152,178)-(144,187) -->
+  <circle cx="140" cy="177" r="4" fill="#FF5500"/>
+  <circle cx="148" cy="177" r="4" fill="#FF5500"/>
+  <polygon points="136,178 152,178 144,187" fill="#FF5500"/>
+</svg>

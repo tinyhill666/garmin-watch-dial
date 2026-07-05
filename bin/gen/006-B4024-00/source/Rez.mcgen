@@ -9,6 +9,13 @@ module Rez {
         (:initialized) var LauncherIcon as ResourceId;
     } // Drawables
 
+    module Fonts {
+        (:initialized) var TimeFont as ResourceId;
+        (:initialized) var DataFont as ResourceId;
+        (:initialized) var SecondsFont as ResourceId;
+        (:initialized) var IconsFont as ResourceId;
+    } // Fonts
+
     module Strings {
         (:initialized) var AppName as ResourceId;
     } // Strings

@@ -3,76 +3,303 @@
     <manifest filename="/Users/joshua/Dev/ai/garmin/manifest.xml"/>
     <pcToLineNum>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="1" lineNum="4" parent="globals/App" pc="268435460" symbol="&lt;init&gt;"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="2" lineNum="7" parent="globals/WatchFaceView" pc="268435472" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="2" lineNum="13" parent="globals/WatchFaceView" pc="268435472" symbol="&lt;init&gt;"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/bin/gen/006-B4024-00/source/Rez.mcgen" id="3" lineNum="7" parent="globals/Rez" pc="268435484" symbol="&lt;init&gt;"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="4" lineNum="9" parent="globals/App" pc="268435504" symbol="getInitialView"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="4" lineNum="10" parent="globals/App" pc="268435506" symbol="getInitialView"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="5" lineNum="5" parent="globals/App" pc="268435532" symbol="initialize"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="5" lineNum="6" parent="globals/App" pc="268435534" symbol="initialize"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="15" parent="globals/WatchFaceView" pc="268435547" symbol="onLayout"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="11" parent="globals/WatchFaceView" pc="268435550" symbol="initialize"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="12" parent="globals/WatchFaceView" pc="268435552" symbol="initialize"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="19" parent="globals/WatchFaceView" pc="268435565" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="20" parent="globals/WatchFaceView" pc="268435568" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="21" parent="globals/WatchFaceView" pc="268435580" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="23" parent="globals/WatchFaceView" pc="268435597" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="28" parent="globals/WatchFaceView" pc="268435669" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="33" parent="globals/WatchFaceView" pc="268435741" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="34" parent="globals/WatchFaceView" pc="268435753" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="36" parent="globals/WatchFaceView" pc="268435761" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="37" parent="globals/WatchFaceView" pc="268435778" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="38" parent="globals/WatchFaceView" pc="268435790" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="39" parent="globals/WatchFaceView" pc="268435802" symbol="onUpdate"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="40" parent="globals/WatchFaceView" pc="268435828" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="220" parent="globals/WatchFaceView" pc="268435547" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="221" parent="globals/WatchFaceView" pc="268435549" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="222" parent="globals/WatchFaceView" pc="268435555" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="224" parent="globals/WatchFaceView" pc="268435564" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="226" parent="globals/WatchFaceView" pc="268435595" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="228" parent="globals/WatchFaceView" pc="268435604" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="230" parent="globals/WatchFaceView" pc="268435628" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="232" parent="globals/WatchFaceView" pc="268435637" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="236" parent="globals/WatchFaceView" pc="268435693" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="238" parent="globals/WatchFaceView" pc="268435702" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="247" parent="globals/WatchFaceView" pc="268435838" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="249" parent="globals/WatchFaceView" pc="268435847" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="255" parent="globals/WatchFaceView" pc="268435935" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="257" parent="globals/WatchFaceView" pc="268435944" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="262" parent="globals/WatchFaceView" pc="268436016" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="6" lineNum="264" parent="globals/WatchFaceView" pc="268436025" symbol="weatherIcon"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="284" parent="globals/WatchFaceView" pc="268436031" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="285" parent="globals/WatchFaceView" pc="268436034" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="286" parent="globals/WatchFaceView" pc="268436069" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="287" parent="globals/WatchFaceView" pc="268436103" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="288" parent="globals/WatchFaceView" pc="268436109" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="289" parent="globals/WatchFaceView" pc="268436119" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="290" parent="globals/WatchFaceView" pc="268436136" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="7" lineNum="294" parent="globals/WatchFaceView" pc="268436159" symbol="getStress"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="297" parent="globals/WatchFaceView" pc="268436161" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="298" parent="globals/WatchFaceView" pc="268436164" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="299" parent="globals/WatchFaceView" pc="268436167" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="300" parent="globals/WatchFaceView" pc="268436179" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="301" parent="globals/WatchFaceView" pc="268436185" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="303" parent="globals/WatchFaceView" pc="268436197" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="304" parent="globals/WatchFaceView" pc="268436203" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="305" parent="globals/WatchFaceView" pc="268436220" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="306" parent="globals/WatchFaceView" pc="268436226" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="307" parent="globals/WatchFaceView" pc="268436236" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="308" parent="globals/WatchFaceView" pc="268436256" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="8" lineNum="312" parent="globals/WatchFaceView" pc="268436274" symbol="getHeartRate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="185" parent="globals/WatchFaceView" pc="268436277" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="186" parent="globals/WatchFaceView" pc="268436279" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="187" parent="globals/WatchFaceView" pc="268436309" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="188" parent="globals/WatchFaceView" pc="268436321" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="189" parent="globals/WatchFaceView" pc="268436329" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="190" parent="globals/WatchFaceView" pc="268436346" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="9" lineNum="192" parent="globals/WatchFaceView" pc="268436387" symbol="drawSeconds"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="10" lineNum="315" parent="globals/WatchFaceView" pc="268436396" symbol="onExitSleep"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="10" lineNum="316" parent="globals/WatchFaceView" pc="268436398" symbol="onExitSleep"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="50" parent="globals/WatchFaceView" pc="268436410" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="51" parent="globals/WatchFaceView" pc="268436413" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="52" parent="globals/WatchFaceView" pc="268436451" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="53" parent="globals/WatchFaceView" pc="268436489" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="54" parent="globals/WatchFaceView" pc="268436527" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="56" parent="globals/WatchFaceView" pc="268436565" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="57" parent="globals/WatchFaceView" pc="268436591" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="60" parent="globals/WatchFaceView" pc="268436620" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="61" parent="globals/WatchFaceView" pc="268436642" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="62" parent="globals/WatchFaceView" pc="268436653" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="63" parent="globals/WatchFaceView" pc="268436661" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="65" parent="globals/WatchFaceView" pc="268436668" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="66" parent="globals/WatchFaceView" pc="268436683" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="67" parent="globals/WatchFaceView" pc="268436698" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="70" parent="globals/WatchFaceView" pc="268436719" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="71" parent="globals/WatchFaceView" pc="268436729" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="11" lineNum="72" parent="globals/WatchFaceView" pc="268436738" symbol="onLayout"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="267" parent="globals/WatchFaceView" pc="268436754" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="268" parent="globals/WatchFaceView" pc="268436756" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="269" parent="globals/WatchFaceView" pc="268436790" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="271" parent="globals/WatchFaceView" pc="268436799" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="272" parent="globals/WatchFaceView" pc="268436816" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="274" parent="globals/WatchFaceView" pc="268436824" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="275" parent="globals/WatchFaceView" pc="268436841" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="277" parent="globals/WatchFaceView" pc="268436850" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="278" parent="globals/WatchFaceView" pc="268436867" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="12" lineNum="280" parent="globals/WatchFaceView" pc="268436876" symbol="weatherColor"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="13" lineNum="181" parent="globals/WatchFaceView" pc="268436882" symbol="onPartialUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="13" lineNum="182" parent="globals/WatchFaceView" pc="268436884" symbol="onPartialUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="196" parent="globals/WatchFaceView" pc="268436911" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="197" parent="globals/WatchFaceView" pc="268436914" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="198" parent="globals/WatchFaceView" pc="268436937" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="199" parent="globals/WatchFaceView" pc="268436949" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="200" parent="globals/WatchFaceView" pc="268436966" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="201" parent="globals/WatchFaceView" pc="268436986" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="202" parent="globals/WatchFaceView" pc="268436998" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="203" parent="globals/WatchFaceView" pc="268437022" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="204" parent="globals/WatchFaceView" pc="268437035" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="205" parent="globals/WatchFaceView" pc="268437050" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="207" parent="globals/WatchFaceView" pc="268437057" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="208" parent="globals/WatchFaceView" pc="268437064" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="209" parent="globals/WatchFaceView" pc="268437070" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="210" parent="globals/WatchFaceView" pc="268437078" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="211" parent="globals/WatchFaceView" pc="268437088" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="212" parent="globals/WatchFaceView" pc="268437096" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="214" parent="globals/WatchFaceView" pc="268437106" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="14" lineNum="215" parent="globals/WatchFaceView" pc="268437120" symbol="drawBattery"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="15" lineNum="319" parent="globals/WatchFaceView" pc="268437148" symbol="onEnterSleep"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="15" lineNum="320" parent="globals/WatchFaceView" pc="268437150" symbol="onEnterSleep"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="16" lineNum="46" parent="globals/WatchFaceView" pc="268437162" symbol="initialize"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="16" lineNum="47" parent="globals/WatchFaceView" pc="268437164" symbol="initialize"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="75" parent="globals/WatchFaceView" pc="268437177" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="76" parent="globals/WatchFaceView" pc="268437180" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="77" parent="globals/WatchFaceView" pc="268437192" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="78" parent="globals/WatchFaceView" pc="268437217" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="80" parent="globals/WatchFaceView" pc="268437229" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="81" parent="globals/WatchFaceView" pc="268437240" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="84" parent="globals/WatchFaceView" pc="268437255" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="85" parent="globals/WatchFaceView" pc="268437267" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="88" parent="globals/WatchFaceView" pc="268437275" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="89" parent="globals/WatchFaceView" pc="268437283" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="91" parent="globals/WatchFaceView" pc="268437314" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="92" parent="globals/WatchFaceView" pc="268437332" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="93" parent="globals/WatchFaceView" pc="268437345" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="94" parent="globals/WatchFaceView" pc="268437362" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="95" parent="globals/WatchFaceView" pc="268437388" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="96" parent="globals/WatchFaceView" pc="268437419" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="99" parent="globals/WatchFaceView" pc="268437445" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="102" parent="globals/WatchFaceView" pc="268437461" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="103" parent="globals/WatchFaceView" pc="268437469" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="104" parent="globals/WatchFaceView" pc="268437488" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="105" parent="globals/WatchFaceView" pc="268437495" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="106" parent="globals/WatchFaceView" pc="268437502" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="109" parent="globals/WatchFaceView" pc="268437512" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="110" parent="globals/WatchFaceView" pc="268437529" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="112" parent="globals/WatchFaceView" pc="268437567" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="113" parent="globals/WatchFaceView" pc="268437583" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="116" parent="globals/WatchFaceView" pc="268437626" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="119" parent="globals/WatchFaceView" pc="268437643" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="120" parent="globals/WatchFaceView" pc="268437666" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="121" parent="globals/WatchFaceView" pc="268437687" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="122" parent="globals/WatchFaceView" pc="268437710" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="123" parent="globals/WatchFaceView" pc="268437728" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="124" parent="globals/WatchFaceView" pc="268437746" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="125" parent="globals/WatchFaceView" pc="268437764" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="126" parent="globals/WatchFaceView" pc="268437781" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="127" parent="globals/WatchFaceView" pc="268437798" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="129" parent="globals/WatchFaceView" pc="268437822" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="130" parent="globals/WatchFaceView" pc="268437838" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="132" parent="globals/WatchFaceView" pc="268437865" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="133" parent="globals/WatchFaceView" pc="268437882" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="137" parent="globals/WatchFaceView" pc="268437912" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="138" parent="globals/WatchFaceView" pc="268437924" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="139" parent="globals/WatchFaceView" pc="268437940" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="140" parent="globals/WatchFaceView" pc="268437960" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="143" parent="globals/WatchFaceView" pc="268437982" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="144" parent="globals/WatchFaceView" pc="268437989" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="145" parent="globals/WatchFaceView" pc="268437996" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="146" parent="globals/WatchFaceView" pc="268438008" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="147" parent="globals/WatchFaceView" pc="268438014" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="148" parent="globals/WatchFaceView" pc="268438025" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="150" parent="globals/WatchFaceView" pc="268438056" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="152" parent="globals/WatchFaceView" pc="268438076" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="153" parent="globals/WatchFaceView" pc="268438098" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="154" parent="globals/WatchFaceView" pc="268438122" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="155" parent="globals/WatchFaceView" pc="268438139" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="159" parent="globals/WatchFaceView" pc="268438163" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="160" parent="globals/WatchFaceView" pc="268438193" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="161" parent="globals/WatchFaceView" pc="268438210" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="162" parent="globals/WatchFaceView" pc="268438238" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="166" parent="globals/WatchFaceView" pc="268438275" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="167" parent="globals/WatchFaceView" pc="268438283" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="168" parent="globals/WatchFaceView" pc="268438300" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="169" parent="globals/WatchFaceView" pc="268438328" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="170" parent="globals/WatchFaceView" pc="268438334" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="171" parent="globals/WatchFaceView" pc="268438351" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="174" parent="globals/WatchFaceView" pc="268438382" symbol="onUpdate"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="17" lineNum="175" parent="globals/WatchFaceView" pc="268438399" symbol="onUpdate"/>
     </pcToLineNum>
     <symbolTable>
         <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry field="true" id="12" symbol="_fontTime"/>
+        <entry id="27" method="true" symbol="weatherIcon"/>
+        <entry field="true" id="8389163" symbol="COLOR_ORANGE"/>
         <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry field="true" id="18" symbol="_secClipY"/>
+        <entry field="true" id="17" symbol="_secClipW"/>
+        <entry field="true" id="16" symbol="_secClipH"/>
+        <entry id="15" symbol="_months"/>
+        <entry field="true" id="13" symbol="_hourX"/>
+        <entry id="25" method="true" symbol="getStress"/>
+        <entry id="23" method="true" symbol="drawSeconds"/>
         <entry id="8388924" module="true" symbol="Gregorian"/>
         <entry field="true" id="8388611" module="true" symbol="Toybox"/>
-        <entry field="true" id="7" symbol="_dateStr"/>
-        <entry id="5" object="true" symbol="App"/>
-        <entry field="true" id="10" symbol="AppName"/>
-        <entry id="4" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="6" object="true" symbol="App"/>
+        <entry field="true" id="33" symbol="AppName"/>
+        <entry id="8388633" module="true" symbol="ActivityMonitor"/>
+        <entry id="5" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="8388772" module="true" object="true" symbol="Fonts"/>
+        <entry id="24" method="true" symbol="getHeartRate"/>
+        <entry id="8388631" module="true" symbol="Activity"/>
         <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry id="8390097" method="true" symbol="onPartialUpdate"/>
         <entry id="2" module="true" symbol="globals/Rez"/>
         <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry field="true" id="14" symbol="_minX"/>
+        <entry id="8391489" module="true" symbol="Weather"/>
+        <entry field="true" id="8389161" symbol="COLOR_RED"/>
         <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry field="true" id="32" symbol="TimeFont"/>
+        <entry id="22" method="true" symbol="drawBattery"/>
         <entry id="8389122" method="true" symbol="onLayout"/>
+        <entry id="8389376" method="true" symbol="onEnterSleep"/>
+        <entry field="true" id="31" symbol="SecondsFont"/>
+        <entry id="21" symbol="_weekdays"/>
         <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry field="true" id="11" symbol="_fontSec"/>
+        <entry field="true" id="8" symbol="_digitW2"/>
+        <entry id="8389377" method="true" symbol="onExitSleep"/>
         <entry id="8388644" module="true" symbol="System"/>
         <entry id="8388645" module="true" symbol="Time"/>
         <entry id="8388769" module="true" object="true" symbol="Rez"/>
         <entry id="8388640" module="true" symbol="Lang"/>
-        <entry field="true" id="9" symbol="LauncherIcon"/>
+        <entry field="true" id="30" symbol="IconsFont"/>
+        <entry field="true" id="28" symbol="LauncherIcon"/>
         <entry id="8388610" symbol="statics"/>
+        <entry field="true" id="8389167" symbol="COLOR_BLUE"/>
+        <entry id="8391847" method="true" symbol="getStressHistory"/>
         <entry id="8389350" module="true" symbol="globals"/>
         <entry id="8388770" module="true" object="true" symbol="Strings"/>
         <entry id="8388702" method="true" symbol="initialize"/>
-        <entry id="6" object="true" symbol="WatchFaceView"/>
+        <entry id="8389808" symbol="period"/>
+        <entry id="7" object="true" symbol="WatchFaceView"/>
+        <entry id="8391701" method="true" symbol="setAntiAlias"/>
+        <entry id="26" method="true" symbol="weatherColor"/>
         <entry id="8389280" method="true" symbol="getInitialView"/>
-        <entry field="true" id="8" symbol="_timeStr"/>
+        <entry field="true" id="9" symbol="_fontData"/>
+        <entry field="true" id="8389164" symbol="COLOR_YELLOW"/>
+        <entry id="8389781" module="true" symbol="SensorHistory"/>
+        <entry field="true" id="10" symbol="_fontIcons"/>
+        <entry field="true" id="29" symbol="DataFont"/>
+        <entry id="4" module="true" symbol="globals/Rez/Fonts"/>
+        <entry field="true" id="20" symbol="_secY"/>
+        <entry field="true" id="19" symbol="_secX"/>
         <entry id="8388635" module="true" symbol="Application"/>
     </symbolTable>
     <localVars>
-        <entry arg="true" endPc="268435854" name="dc" stackId="1" startPc="268435565"/>
-        <entry endPc="268435853" name="now" stackId="2" startPc="268435568"/>
-        <entry endPc="268435853" name="info" stackId="3" startPc="268435568"/>
-        <entry endPc="268435853" name="cx" stackId="4" startPc="268435568"/>
-        <entry endPc="268435853" name="cy" stackId="5" startPc="268435568"/>
+        <entry arg="true" endPc="268436030" name="c" stackId="1" startPc="268435547"/>
+        <entry endPc="268436155" name="it" stackId="1" startPc="268436069"/>
+        <entry endPc="268436152" name="sample" stackId="2" startPc="268436109"/>
+        <entry endPc="268436276" name="hr" stackId="1" startPc="268436164"/>
+        <entry endPc="268436276" name="ai" stackId="2" startPc="268436164"/>
+        <entry endPc="268436270" name="hist" stackId="3" startPc="268436203"/>
+        <entry endPc="268436267" name="sample" stackId="4" startPc="268436226"/>
+        <entry arg="true" endPc="268436395" name="dc" stackId="1" startPc="268436277"/>
+        <entry arg="true" endPc="268436395" name="sec" stackId="2" startPc="268436277"/>
+        <entry arg="true" endPc="268436753" name="dc" stackId="1" startPc="268436410"/>
+        <entry endPc="268436752" name="total" stackId="2" startPc="268436413"/>
+        <entry endPc="268436752" name="left" stackId="3" startPc="268436413"/>
+        <entry arg="true" endPc="268436881" name="icon" stackId="1" startPc="268436754"/>
+        <entry arg="true" endPc="268436910" name="dc" stackId="1" startPc="268436882"/>
+        <entry arg="true" endPc="268437147" name="dc" stackId="1" startPc="268436911"/>
+        <entry arg="true" endPc="268437147" name="x" stackId="2" startPc="268436911"/>
+        <entry arg="true" endPc="268437147" name="y" stackId="3" startPc="268436911"/>
+        <entry endPc="268437146" name="batt" stackId="4" startPc="268436914"/>
+        <entry endPc="268437146" name="fillW" stackId="5" startPc="268436914"/>
+        <entry endPc="268437143" name="battColor" stackId="6" startPc="268437064"/>
+        <entry arg="true" endPc="268438437" name="dc" stackId="1" startPc="268437177"/>
+        <entry endPc="268438436" name="clock" stackId="2" startPc="268437180"/>
+        <entry endPc="268438436" name="info" stackId="3" startPc="268437180"/>
+        <entry endPc="268438436" name="actInfo" stackId="4" startPc="268437180"/>
+        <entry endPc="268438436" name="hr" stackId="5" startPc="268437180"/>
+        <entry endPc="268438436" name="hrStr" stackId="6" startPc="268437180"/>
+        <entry endPc="268438436" name="hrW" stackId="7" startPc="268437180"/>
+        <entry endPc="268438436" name="hx" stackId="8" startPc="268437180"/>
+        <entry endPc="268438436" name="hour" stackId="9" startPc="268437180"/>
+        <entry endPc="268438436" name="s1" stackId="10" startPc="268437180"/>
+        <entry endPc="268438436" name="s2" stackId="11" startPc="268437180"/>
+        <entry endPc="268438436" name="s3" stackId="12" startPc="268437180"/>
+        <entry endPc="268438436" name="w1" stackId="13" startPc="268437180"/>
+        <entry endPc="268438436" name="w2" stackId="14" startPc="268437180"/>
+        <entry endPc="268438436" name="w3" stackId="15" startPc="268437180"/>
+        <entry endPc="268438436" name="dx" stackId="16" startPc="268437180"/>
+        <entry endPc="268438436" name="tempStr" stackId="17" startPc="268437180"/>
+        <entry endPc="268438436" name="wIcon" stackId="18" startPc="268437180"/>
+        <entry endPc="268438436" name="cond" stackId="19" startPc="268437180"/>
+        <entry endPc="268438436" name="steps" stackId="20" startPc="268437180"/>
+        <entry endPc="268438436" name="stress" stackId="21" startPc="268437180"/>
     </localVars>
     <deviceInfo deviceVersion="45fe3cbb0de8ea0a70e12628d2697915f1272301" partNumber="006-B4024-00"/>
     <annotations>
         <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+        <annotationEntry annotation="initialized" class="Fonts" module="globals/Rez" symbol="TimeFont"/>
+        <annotationEntry annotation="initialized" class="Fonts" module="globals/Rez" symbol="IconsFont"/>
+        <annotationEntry annotation="initialized" class="Fonts" module="globals/Rez" symbol="SecondsFont"/>
         <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+        <annotationEntry annotation="initialized" class="Fonts" module="globals/Rez" symbol="DataFont"/>
     </annotations>
     <dataEntryOffsetMappings>
-        <dataEntry label="globals" offset="49" parentId="" symbolId="globals" type="module"/>
-        <dataEntry label="globals/App" offset="107" parentId="globals" symbolId="App" type="class"/>
-        <dataEntry label="globals/WatchFaceView" offset="160" parentId="globals" symbolId="WatchFaceView" type="class"/>
-        <dataEntry label="globals/Rez" offset="240" parentId="globals" symbolId="Rez" type="module"/>
-        <dataEntry label="globals/Rez/Drawables" offset="284" parentId="Rez" symbolId="Drawables" type="module"/>
-        <dataEntry label="globals/Rez/Strings" offset="319" parentId="Rez" symbolId="Strings" type="module"/>
+        <dataEntry label="globals" offset="58" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/App" offset="116" parentId="globals" symbolId="App" type="class"/>
+        <dataEntry label="globals/WatchFaceView" offset="169" parentId="globals" symbolId="WatchFaceView" type="class"/>
+        <dataEntry label="globals/Rez" offset="438" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/Rez/Drawables" offset="491" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Fonts" offset="526" parentId="Rez" symbolId="Fonts" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="588" parentId="Rez" symbolId="Strings" type="module"/>
     </dataEntryOffsetMappings>
     <functions>
         <functionEntry accessMode="public" endPc="268435471" name="&lt;init&gt;" parent="App" startPc="268435460">
@@ -90,18 +317,56 @@
         <functionEntry accessMode="public" endPc="268435546" name="initialize" parent="App" startPc="268435532">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435549" name="onLayout" parent="WatchFaceView" startPc="268435547">
+        <functionEntry accessMode="protected" endPc="268436030" name="weatherIcon" parent="WatchFaceView" startPc="268435547">
+            <param id="c"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="protected" endPc="268436160" name="getStress" parent="WatchFaceView" startPc="268436031">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="protected" endPc="268436276" name="getHeartRate" parent="WatchFaceView" startPc="268436161">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="protected" endPc="268436395" name="drawSeconds" parent="WatchFaceView" startPc="268436277">
+            <param id="dc"/>
+            <param id="sec"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436409" name="onExitSleep" parent="WatchFaceView" startPc="268436396">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436753" name="onLayout" parent="WatchFaceView" startPc="268436410">
             <param id="dc"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435564" name="initialize" parent="WatchFaceView" startPc="268435550">
+        <functionEntry accessMode="protected" endPc="268436881" name="weatherColor" parent="WatchFaceView" startPc="268436754">
+            <param id="icon"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435854" name="onUpdate" parent="WatchFaceView" startPc="268435565">
+        <functionEntry accessMode="public" endPc="268436910" name="onPartialUpdate" parent="WatchFaceView" startPc="268436882">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="protected" endPc="268437147" name="drawBattery" parent="WatchFaceView" startPc="268436911">
+            <param id="dc"/>
+            <param id="x"/>
+            <param id="y"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437161" name="onEnterSleep" parent="WatchFaceView" startPc="268437148">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437176" name="initialize" parent="WatchFaceView" startPc="268437162">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268438437" name="onUpdate" parent="WatchFaceView" startPc="268437177">
             <param id="dc"/>
             <documentation/>
         </functionEntry>
         <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Fonts">
             <documentation/>
         </functionEntry>
         <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">

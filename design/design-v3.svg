@@ -1,0 +1,56 @@
+<svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- ================= STRIDE watch face v3 / fr955 260x260 =================
+       示例数据: 10:09:36 · HR 128 · Battery 68% · Steps 8456/10000 · WED 7/2
+       调色板(RGB222): #000000 #FFFFFF #AAAAAA #555555 #00AAFF #00FF55 #FFFF00 #FF0000 -->
+
+  <!-- 屏幕: 黑色正圆 -->
+  <circle cx="130" cy="130" r="130" fill="#000000"/>
+
+  <!-- 左缘装饰双弧: 外 r=123 #00AAFF 145°-215°, 内 r=115 #555555 158°-202° -->
+  <path d="M 29.25 59.45 A 123 123 0 0 0 29.25 200.55"
+        fill="none" stroke="#00AAFF" stroke-width="3" stroke-linecap="butt"/>
+  <path d="M 23.38 86.93 A 115 115 0 0 0 23.38 173.07"
+        fill="none" stroke="#555555" stroke-width="3" stroke-linecap="butt"/>
+
+  <!-- 步数目标进度弧: r=120 pen8, 轨道 230°-310°, 进度 84.6% (10:09 示例 8456/10000) -->
+  <path d="M 52.87 221.93 A 120 120 0 0 0 207.13 221.93"
+        fill="none" stroke="#555555" stroke-width="8" stroke-linecap="butt"/>
+  <path d="M 52.87 221.93 A 120 120 0 0 0 185.70 236.30"
+        fill="none" stroke="#00FF55" stroke-width="8" stroke-linecap="butt"/>
+
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+
+    <!-- 顶带: 周几(青, 右对齐至 x=126) + 月/日(白, 左对齐自 x=134), vcenter y=30 -->
+    <text x="126" y="38" text-anchor="end" font-size="22" font-weight="700" fill="#00AAFF">WED</text>
+    <text x="134" y="38" text-anchor="start" font-size="22" font-weight="700" fill="#FFFFFF">7/2</text>
+
+    <!-- 数字塔: 时(青) FONT_NUMBER_THAI_HOT 锚点(40,86), 分(白) 锚点(62,170) 右错22px -->
+    <text x="40" y="122" text-anchor="start" font-size="102" font-weight="800"
+          textLength="112" lengthAdjust="spacingAndGlyphs" fill="#00AAFF">10</text>
+    <text x="62" y="206" text-anchor="start" font-size="102" font-weight="800"
+          textLength="112" lengthAdjust="spacingAndGlyphs" fill="#FFFFFF">09</text>
+
+    <!-- 秒: FONT_NUMBER_MILD 灰, 锚点(184,178); 刷新矩形 (180,156,60,44) -->
+    <text x="184" y="194" text-anchor="start" font-size="44" font-weight="700" fill="#AAAAAA">36</text>
+
+    <!-- 心率数值: FONT_TINY 白, 左对齐 (203,82) -->
+    <text x="203" y="90" text-anchor="start" font-size="23" font-weight="700" fill="#FFFFFF">128</text>
+
+    <!-- 步数数值: FONT_TINY 白, 成组居中 (组左缘 x0=92, 数值自 x0+24=116), vcenter y=226 -->
+    <text x="116" y="234" text-anchor="start" font-size="23" font-weight="700" fill="#FFFFFF">8456</text>
+  </g>
+
+  <!-- 心形图标 #FF0000: 双圆(186/194,79,r4) + 三角(182,80)-(198,80)-(190,89) -->
+  <circle cx="186" cy="79" r="4" fill="#FF0000"/>
+  <circle cx="194" cy="79" r="4" fill="#FF0000"/>
+  <polygon points="182,80 198,80 190,89" fill="#FF0000"/>
+
+  <!-- 电池图标(仅图标): 外框(182,124,22,13,r3) + 电量条(185,127, 16*68%=11, 7) 绿 + 触点(204,127,3,7) -->
+  <rect x="182" y="124" width="22" height="13" rx="3" fill="none" stroke="#AAAAAA" stroke-width="2"/>
+  <rect x="185" y="127" width="11" height="7" fill="#00FF55"/>
+  <rect x="205" y="127" width="3" height="7" fill="#AAAAAA"/>
+
+  <!-- 足迹图标 #00FF55: 双竖椭圆错位 (x0+6=98, 230) / (x0+15=107, 222) -->
+  <ellipse cx="98" cy="230" rx="4" ry="6" fill="#00FF55"/>
+  <ellipse cx="107" cy="222" rx="4" ry="6" fill="#00FF55"/>
+</svg>
