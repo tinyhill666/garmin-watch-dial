@@ -17,6 +17,15 @@ module Rez {
     } // Fonts
 
     module Strings {
+        (:initialized) var ColorBlue as ResourceId;
+        (:initialized) var ColorRed as ResourceId;
+        (:initialized) var ColorAmber as ResourceId;
+        (:initialized) var ThemeColorTitle as ResourceId;
+        (:initialized) var ColorCyan as ResourceId;
+        (:initialized) var ColorPink as ResourceId;
+        (:initialized) var ColorOrange as ResourceId;
+        (:initialized) var ColorWhite as ResourceId;
+        (:initialized) var ColorGreen as ResourceId;
         (:initialized) var AppName as ResourceId;
     } // Strings
 

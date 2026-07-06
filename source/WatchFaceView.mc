@@ -7,19 +7,32 @@ using Toybox.Time.Gregorian;
 using Toybox.Activity;
 using Toybox.ActivityMonitor;
 using Toybox.Weather;
+using Toybox.Application;
 
 // «TEMPO» v6：参考用户提供的目标设计
 // 双色大字时间（时白分绿，无冒号）+ 顶行心率/电池 + 日期行（日数绿）+ 底部三格（天气/步数/卡路里）
 class WatchFaceView extends WatchUi.WatchFace {
     // 调色板（RGB222）
-    const COLOR_ACCENT = 0x55FF00;  // 主点缀绿：分钟、日期中的日数、电池高电量
     const COLOR_BLUE = 0x00AAFF;    // 雨天图标、身体电量闪电
     const COLOR_RED = 0xFF0000;     // 心形、电池低电量
     const COLOR_YELLOW = 0xFFFF00;  // 电池中档
     const COLOR_AMBER = 0xFFAA00;   // 太阳图标
     const COLOR_ORANGE = 0xFF5500;  // 火焰图标
     const COLOR_DIM = 0xAAAAAA;     // 秒、电池描边、无值占位
-    const COLOR_LINE = 0x555555;    // 底部分隔线
+    const COLOR_GREEN = 0x55FF00;   // 电池高电量（语义绿，独立于主题色）
+
+    // 主题色可选调色板（全部 RGB222 合法），索引对应 settings.xml 的 listEntry value
+    hidden var _palette = [
+        0x55FF00,  // 0 绿（默认）
+        0x00FFFF,  // 1 青
+        0x00AAFF,  // 2 蓝
+        0xFFAA00,  // 3 琥珀
+        0xFF5500,  // 4 橙
+        0xFF55AA,  // 5 粉
+        0xFF5555,  // 6 红
+        0xFFFFFF   // 7 白
+    ];
+    hidden var _accent = 0x55FF00;  // 当前主题色：分钟、日期日数（onLayout/onSettingsChanged 读属性）
 
     hidden var _weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
     hidden var _months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
@@ -40,7 +53,7 @@ class WatchFaceView extends WatchUi.WatchFace {
     hidden var _secClipW = 0;
     hidden var _secClipH = 0;
 
-    const TIME_Y = 108;
+    const TIME_Y = 104;
     const TIME_GAP = 6;
 
     function initialize() {
@@ -53,23 +66,26 @@ class WatchFaceView extends WatchUi.WatchFace {
         _fontSec = WatchUi.loadResource(Rez.Fonts.SecondsFont);
         _fontIcons = WatchUi.loadResource(Rez.Fonts.IconsFont);
 
+        loadAccent();
+
         _digitW2 = dc.getTextWidthInPixels("88", _fontTime);
         _secClipW = dc.getTextWidthInPixels("88", _fontSec) + 2;
 
-        // 时+分+秒作为整体水平居中（92px 数字 + 20px 秒，总宽 ≈234，圆界内安全）
+        // 时+分+秒作为整体水平居中（92px 数字 + 32px 秒，总宽 ≈245，圆界内安全）
         var total = _digitW2 * 2 + TIME_GAP + 4 + _secClipW;
         var left = 130 - total / 2;
-        if (left < 12) {
-            left = 12;
+        if (left < 8) {
+            left = 8;
         }
         _hourX = left + _digitW2;
         _minX = _hourX + TIME_GAP;
         _secX = _minX + _digitW2 + 4;
 
-        // 秒底缘与时间数字底缘对齐：92px 字形底 ≈ TIME_Y+37.5，20px 秒字形底 = 锚点+8.5
-        _secY = TIME_Y + 29;
-        _secClipH = 20;
-        _secClipY = _secY - 10;
+        // 秒底缘与时间数字底缘对齐：92px 字形底 ≈ TIME_Y+37.5；
+        // 32px 秒（VCENTER）字形底 = 锚点+13 → _secY = TIME_Y+24.5
+        _secY = TIME_Y + 25;
+        _secClipH = 28;
+        _secClipY = _secY - 14;
     }
 
     function onUpdate(dc) {
@@ -80,6 +96,10 @@ class WatchFaceView extends WatchUi.WatchFace {
         if (dc has :setAntiAlias) {
             dc.setAntiAlias(true);
         }
+
+        // 每次整屏重绘重读主题色：不依赖 onSettingsChanged 是否触发，
+        // 用户改色后最迟下一次刷新（或抬腕唤醒）即生效
+        loadAccent();
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.clear();
@@ -109,7 +129,7 @@ class WatchFaceView extends WatchUi.WatchFace {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_hourX, TIME_Y, _fontTime, hour.format("%02d"),
             Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.setColor(COLOR_ACCENT, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(_minX, TIME_Y, _fontTime, clock.min.format("%02d"),
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
@@ -124,21 +144,18 @@ class WatchFaceView extends WatchUi.WatchFace {
         var w3 = dc.getTextWidthInPixels(s3, _fontData);
         var dx = 130 - (w1 + w2 + w3) / 2;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx, 168, _fontData, s1,
+        dc.drawText(dx, 160, _fontData, s1,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
-        dc.setColor(COLOR_ACCENT, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1, 168, _fontData, s2,
+        dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(dx + w1, 160, _fontData, s2,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1 + w2, 168, _fontData, s3,
+        dc.drawText(dx + w1 + w2, 160, _fontData, s3,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // ── 底部三格：天气 | 步数 | 卡路里，细线分隔
-        dc.setPenWidth(1);
-        dc.setColor(COLOR_LINE, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(97, 188, 97, 232);
-        dc.drawLine(163, 188, 163, 232);
-
+        // ── 底部三格：天气 | 步数 | 压力（无分隔线）
+        // 整体上移避开圆屏下弧；两侧格中心内收至 68/192（往圆屏更宽处）避免下角被切；
+        // 步数格（居中，可达 5 位）单独下移 6px 与两侧错落
         // 格1：天气（图标随天气状况切换 + 温度）
         var tempStr = "--°";
         var wIcon = "O";
@@ -150,31 +167,47 @@ class WatchFaceView extends WatchUi.WatchFace {
             wIcon = weatherIcon(cond.condition);
         }
         dc.setColor(weatherColor(wIcon), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(72, 190, _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(68, 178, _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(72, 224, _fontData, tempStr,
+        dc.drawText(68, 212, _fontData, tempStr,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // 格2：步数（足迹 + 值）
+        // 格2：步数（足迹 + 完整数值；居中格单独下移 6px 与两侧错落）
         var steps = (actInfo != null && actInfo.steps != null) ? actInfo.steps : 0;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(130, 190, _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(130, 224, _fontData, steps.format("%d"),
+        dc.drawText(130, 184, _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(130, 218, _fontData, steps.format("%d"),
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // 格3：压力值（仪表图标 + 值）
+        // 格3：压力值（图标随四档切换：静息/低/中/高）
         var stress = getStress();
-        dc.setColor(COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(188, 190, _fontIcons, "X", Graphics.TEXT_JUSTIFY_CENTER);
         if (stress == null) {
             dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(188, 224, _fontData, "--",
+            dc.drawText(192, 178, _fontIcons, "3", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(192, 212, _fontData, "--",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         } else {
+            dc.setColor(stressColor(stress), Graphics.COLOR_TRANSPARENT);
+            dc.drawText(192, 178, _fontIcons, stressIcon(stress), Graphics.TEXT_JUSTIFY_CENTER);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(188, 224, _fontData, stress.format("%d"),
+            dc.drawText(192, 212, _fontData, stress.format("%d"),
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
+    }
+
+    // 从 Application.Properties 读主题色索引，映射到调色板
+    hidden function loadAccent() {
+        var idx = Application.Properties.getValue("ThemeColor");
+        if (idx == null || !(idx instanceof Lang.Number) || idx < 0 || idx >= _palette.size()) {
+            idx = 0;
+        }
+        _accent = _palette[idx];
+    }
+
+    // 用户改设置后回调：立即重载主题色并刷新（onUpdate 也会兜底重读）
+    function onSettingsChanged() {
+        loadAccent();
+        WatchUi.requestUpdate();
     }
 
     // 每秒回调（低功耗模式），只重绘秒区域
@@ -205,7 +238,7 @@ class WatchFaceView extends WatchUi.WatchFace {
             fillW = 1;
         }
         if (fillW > 0) {
-            var battColor = COLOR_ACCENT;
+            var battColor = COLOR_GREEN;  // 电池语义绿，固定不随主题色变
             if (batt <= 20) {
                 battColor = COLOR_RED;
             } else if (batt <= 50) {
@@ -280,14 +313,33 @@ class WatchFaceView extends WatchUi.WatchFace {
         return COLOR_DIM;
     }
 
-    // 压力值：最近一次采样
+    // 压力四档 → 表情图标字符（Garmin 分级：0-25 静息 / 26-50 低 / 51-75 中 / 76-100 高）
+    hidden function stressIcon(s) {
+        if (s <= 25) { return "1"; }   // 平静脸
+        if (s <= 50) { return "2"; }   // 微笑脸
+        if (s <= 75) { return "3"; }   // 平脸
+        return "4";                    // 压力脸
+    }
+
+    // 压力四档 → 颜色（蓝/绿/琥珀/红，语义色，独立于主题）
+    hidden function stressColor(s) {
+        if (s <= 25) { return COLOR_BLUE; }
+        if (s <= 50) { return COLOR_GREEN; }
+        if (s <= 75) { return COLOR_AMBER; }
+        return 0xFF5555;
+    }
+
+    // 压力值：遍历近期历史找最近的有效采样（压力非每分钟都有值，最新样本常为空）
     hidden function getStress() {
         if ((Toybox has :SensorHistory) && (Toybox.SensorHistory has :getStressHistory)) {
-            var it = Toybox.SensorHistory.getStressHistory({:period => 1});
+            var it = Toybox.SensorHistory.getStressHistory({:period => 8});
             if (it != null) {
                 var sample = it.next();
-                if (sample != null && sample.data != null) {
-                    return sample.data.toNumber();
+                while (sample != null) {
+                    if (sample.data != null) {
+                        return sample.data.toNumber();
+                    }
+                    sample = it.next();
                 }
             }
         }
