@@ -1,6 +1,6 @@
 info face="BarlowSemiCondensed-Bold.ttf" size=-92 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=2,2 outline=0
 common lineHeight=111 base=92 scaleW=459 scaleH=70 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
-page id=0 file="tempo-bold-92.png"
+page id=0 file="time.png"
 chars count=10
 char id=48 x=2 y=2 width=47 height=66 xoffset=1 yoffset=27 xadvance=50 page=0 chnl=15
 char id=49 x=51 y=2 width=29 height=64 xoffset=10 yoffset=28 xadvance=50 page=0 chnl=15

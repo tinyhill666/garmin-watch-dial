@@ -4,7 +4,7 @@
     <pcToLineNum>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="1" lineNum="4" parent="globals/App" pc="268435460" symbol="&lt;init&gt;"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/WatchFaceView.mc" id="2" lineNum="14" parent="globals/WatchFaceView" pc="268435472" symbol="&lt;init&gt;"/>
-        <entry filename="/Users/joshua/Dev/ai/garmin/bin/gen/006-B4024-00/source/Rez.mcgen" id="3" lineNum="7" parent="globals/Rez" pc="268435484" symbol="&lt;init&gt;"/>
+        <entry filename="/Users/joshua/Dev/ai/garmin/bin/gen/006-B4565-00/source/Rez.mcgen" id="3" lineNum="7" parent="globals/Rez" pc="268435484" symbol="&lt;init&gt;"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="4" lineNum="17" parent="globals/App" pc="268435504" symbol="onSettingsChanged"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="4" lineNum="18" parent="globals/App" pc="268435506" symbol="onSettingsChanged"/>
         <entry filename="/Users/joshua/Dev/ai/garmin/source/App.mc" id="4" lineNum="19" parent="globals/App" pc="268435515" symbol="onSettingsChanged"/>
@@ -346,7 +346,7 @@
         <entry endPc="268439203" name="steps" stackId="20" startPc="268437745"/>
         <entry endPc="268439203" name="stress" stackId="21" startPc="268437745"/>
     </localVars>
-    <deviceInfo deviceVersion="45fe3cbb0de8ea0a70e12628d2697915f1272301" partNumber="006-B4024-00"/>
+    <deviceInfo deviceVersion="45fe3cbb0de8ea0a70e12628d2697915f1272301" partNumber="006-B4565-00"/>
     <annotations>
         <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
         <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="ColorCyan"/>

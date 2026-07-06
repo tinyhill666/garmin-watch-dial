@@ -53,11 +53,26 @@ class WatchFaceView extends WatchUi.WatchFace {
     hidden var _secClipW = 0;
     hidden var _secClipH = 0;
 
+    // 分辨率无关：所有坐标以 260×260 为基准，按 _s 缩放（fr955=1.0，fr965/970≈1.75）
+    hidden var _s = 1.0;   // 缩放系数 = 屏宽 / 260
+    hidden var _cx = 130;  // 屏幕中心 x
+
     const TIME_Y = 104;
     const TIME_GAP = 6;
 
     function initialize() {
         WatchFace.initialize();
+    }
+
+    // 260 基准坐标 → 实际像素
+    hidden function px(v) {
+        return (v * _s + 0.5).toNumber();
+    }
+
+    // 线宽缩放，最小 1px
+    hidden function pw(v) {
+        var w = (v * _s + 0.5).toNumber();
+        return w < 1 ? 1 : w;
     }
 
     function onLayout(dc) {
@@ -66,26 +81,27 @@ class WatchFaceView extends WatchUi.WatchFace {
         _fontSec = WatchUi.loadResource(Rez.Fonts.SecondsFont);
         _fontIcons = WatchUi.loadResource(Rez.Fonts.IconsFont);
 
+        _s = dc.getWidth() / 260.0;
+        _cx = dc.getWidth() / 2;
         loadAccent();
 
         _digitW2 = dc.getTextWidthInPixels("88", _fontTime);
-        _secClipW = dc.getTextWidthInPixels("88", _fontSec) + 2;
+        _secClipW = dc.getTextWidthInPixels("88", _fontSec) + px(2);
 
-        // 时+分+秒作为整体水平居中（92px 数字 + 32px 秒，总宽 ≈245，圆界内安全）
-        var total = _digitW2 * 2 + TIME_GAP + 4 + _secClipW;
-        var left = 130 - total / 2;
-        if (left < 8) {
-            left = 8;
+        // 时+分+秒作为整体水平居中；字体宽度已随屏放大，坐标偏移用 px() 缩放
+        var total = _digitW2 * 2 + px(TIME_GAP) + px(4) + _secClipW;
+        var left = _cx - total / 2;
+        if (left < px(8)) {
+            left = px(8);
         }
         _hourX = left + _digitW2;
-        _minX = _hourX + TIME_GAP;
-        _secX = _minX + _digitW2 + 4;
+        _minX = _hourX + px(TIME_GAP);
+        _secX = _minX + _digitW2 + px(4);
 
-        // 秒底缘与时间数字底缘对齐：92px 字形底 ≈ TIME_Y+37.5；
-        // 32px 秒（VCENTER）字形底 = 锚点+13 → _secY = TIME_Y+24.5
-        _secY = TIME_Y + 25;
-        _secClipH = 28;
-        _secClipY = _secY - 14;
+        // 秒底缘与时间数字底缘对齐（几何关系随比例缩放）
+        _secY = px(TIME_Y + 25);
+        _secClipH = px(28);
+        _secClipY = _secY - px(14);
     }
 
     function onUpdate(dc) {
@@ -107,16 +123,16 @@ class WatchFaceView extends WatchUi.WatchFace {
         // ── 顶行：心率组（左）+ 电池图标（右）
         var hr = getHeartRate();
         var hrStr = (hr == null) ? "--" : hr.format("%d");
-        // 左右两组关于中轴对称锚定（组中心 98 / 172），垂直共线（中心 41）
+        // 左右两组关于中轴对称锚定（组中心 98 / 172），垂直共线
         var hrW = dc.getTextWidthInPixels(hrStr, _fontData);
-        var hx = 98 - (22 + 4 + hrW) / 2;
+        var hx = px(98) - (px(22) + px(4) + hrW) / 2;
         dc.setColor(COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(hx, 31, _fontIcons, "H", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(hx, px(31), _fontIcons, "H", Graphics.TEXT_JUSTIFY_LEFT);
         dc.setColor(hr == null ? COLOR_DIM : Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(hx + 26, 41, _fontData, hrStr,
+        dc.drawText(hx + px(26), px(41), _fontData, hrStr,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        drawBattery(dc, 156, 34);
+        drawBattery(dc, px(156), px(34));
 
         // ── 时间：时（白，右对齐至中缝）+ 分（绿，左对齐自中缝），无冒号
         var hour = clock.hour;
@@ -127,10 +143,10 @@ class WatchFaceView extends WatchUi.WatchFace {
             }
         }
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_hourX, TIME_Y, _fontTime, hour.format("%02d"),
+        dc.drawText(_hourX, px(TIME_Y), _fontTime, hour.format("%02d"),
             Graphics.TEXT_JUSTIFY_RIGHT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_minX, TIME_Y, _fontTime, clock.min.format("%02d"),
+        dc.drawText(_minX, px(TIME_Y), _fontTime, clock.min.format("%02d"),
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         drawSeconds(dc, clock.sec);
@@ -142,15 +158,15 @@ class WatchFaceView extends WatchUi.WatchFace {
         var w1 = dc.getTextWidthInPixels(s1, _fontData);
         var w2 = dc.getTextWidthInPixels(s2, _fontData);
         var w3 = dc.getTextWidthInPixels(s3, _fontData);
-        var dx = 130 - (w1 + w2 + w3) / 2;
+        var dx = _cx - (w1 + w2 + w3) / 2;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx, 160, _fontData, s1,
+        dc.drawText(dx, px(160), _fontData, s1,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1, 160, _fontData, s2,
+        dc.drawText(dx + w1, px(160), _fontData, s2,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1 + w2, 160, _fontData, s3,
+        dc.drawText(dx + w1 + w2, px(160), _fontData, s3,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // ── 底部三格：天气 | 步数 | 压力（无分隔线）
@@ -167,30 +183,30 @@ class WatchFaceView extends WatchUi.WatchFace {
             wIcon = weatherIcon(cond.condition);
         }
         dc.setColor(weatherColor(wIcon), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(68, 178, _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(px(68), px(178), _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(68, 212, _fontData, tempStr,
+        dc.drawText(px(68), px(212), _fontData, tempStr,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // 格2：步数（足迹 + 完整数值；居中格单独下移 6px 与两侧错落）
         var steps = (actInfo != null && actInfo.steps != null) ? actInfo.steps : 0;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(130, 184, _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(130, 218, _fontData, steps.format("%d"),
+        dc.drawText(_cx, px(184), _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, px(218), _fontData, steps.format("%d"),
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // 格3：压力值（图标随四档切换：静息/低/中/高）
         var stress = getStress();
         if (stress == null) {
             dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(192, 178, _fontIcons, "3", Graphics.TEXT_JUSTIFY_CENTER);
-            dc.drawText(192, 212, _fontData, "--",
+            dc.drawText(px(192), px(178), _fontIcons, "3", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(px(192), px(212), _fontData, "--",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         } else {
             dc.setColor(stressColor(stress), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(192, 178, _fontIcons, stressIcon(stress), Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(px(192), px(178), _fontIcons, stressIcon(stress), Graphics.TEXT_JUSTIFY_CENTER);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(192, 212, _fontData, stress.format("%d"),
+            dc.drawText(px(192), px(212), _fontData, stress.format("%d"),
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
@@ -225,15 +241,15 @@ class WatchFaceView extends WatchUi.WatchFace {
         dc.clearClip();
     }
 
-    // 电池纯图标：外框 30x15 + 触点，填充按比例、绿/黄/红三档
+    // 电池纯图标：外框 30x15 + 触点，填充按比例、绿/黄/红三档（x,y 已缩放，内部尺寸再缩放）
     hidden function drawBattery(dc, x, y) {
         var batt = System.getSystemStats().battery.toNumber();
-        dc.setPenWidth(2);
+        dc.setPenWidth(pw(2));
         dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
-        dc.drawRoundedRectangle(x, y, 30, 15, 4);
+        dc.drawRoundedRectangle(x, y, px(30), px(15), px(4));
         dc.setPenWidth(1);
-        dc.fillRectangle(x + 30, y + 4, 3, 7);
-        var fillW = (24 * batt + 50) / 100;
+        dc.fillRectangle(x + px(30), y + px(4), px(3), px(7));
+        var fillW = (px(24) * batt + 50) / 100;
         if (batt > 0 && fillW < 1) {
             fillW = 1;
         }
@@ -245,7 +261,7 @@ class WatchFaceView extends WatchUi.WatchFace {
                 battColor = COLOR_YELLOW;
             }
             dc.setColor(battColor, Graphics.COLOR_TRANSPARENT);
-            dc.fillRectangle(x + 3, y + 3, fillW, 9);
+            dc.fillRectangle(x + px(3), y + px(3), fillW, px(9));
         }
     }
 

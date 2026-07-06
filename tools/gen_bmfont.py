@@ -214,27 +214,39 @@ def write_fnt(name, face, size, line_h, base, atlas, chars):
     print(f"{name}: {atlas.width}x{atlas.height}, {len(chars)} chars")
 
 
+DATA_CHARS = " -/.°0123456789ABCDEFGHIJLMNOPRSTUVWYk"
+ICON_MAP = {
+    "H": 0xE87E,  # favorite 心形
+    "F": 0xF87D,  # footprint 足迹
+    "S": 0xE81A,  # sunny 晴
+    "P": 0xF172,  # partly_cloudy_day 少云
+    "O": 0xF15C,  # cloud 阴/多云
+    "R": 0xF176,  # rainy 雨
+    "W": 0xE2CD,  # weather_snowy 雪
+    "T": 0xEBDB,  # thunderstorm 雷
+    "G": 0xE818,  # foggy 雾霾
+    "B": 0xEA0B,  # bolt 身体电量（备用）
+    "C": 0xEF55,  # local_fire_department 卡路里（备用）
+    "1": 0xF6A7,  # sentiment_calm 压力静息 0-25
+    "2": 0xE813,  # sentiment_satisfied 压力低 26-50
+    "3": 0xE812,  # sentiment_neutral 压力中 51-75
+    "4": 0xF6A2,  # sentiment_stressed 压力高 76-100
+}
+
+
+def gen_set(out_dir, s):
+    """按缩放系数 s 生成一整套角色命名字体到 out_dir。
+    基准（s=1，对应 260px 屏）：时 92 / 数据 26 / 秒 32 / 图标 22。
+    """
+    global OUT
+    OUT = out_dir
+    gen_text_font("BarlowSemiCondensed-Bold.ttf", round(92 * s), "0123456789", "time")
+    gen_text_font("TitilliumWeb-SemiBold.ttf", round(26 * s), DATA_CHARS, "data")
+    gen_text_font("TitilliumWeb-SemiBold.ttf", round(32 * s), "0123456789", "sec")
+    gen_material_icons("icons", round(22 * s), ICON_MAP)
+
+
 if __name__ == "__main__":
-    # v6.1: 时间 92px（保证秒不越圆界），秒专用 20px，图标用 Material Symbols
-    gen_text_font("BarlowSemiCondensed-Bold.ttf", 92, "0123456789", "tempo-bold-92")
-    gen_text_font("TitilliumWeb-SemiBold.ttf", 26,
-                  " -/.°0123456789ABCDEFGHIJLMNOPRSTUVWYk", "tempo-semibold-26")
-    gen_text_font("TitilliumWeb-SemiBold.ttf", 32, "0123456789", "tempo-semibold-32")
-    gen_material_icons("tempo-icons", 22, {
-        "H": 0xE87E,  # favorite 心形
-        "F": 0xF87D,  # footprint 足迹
-        "S": 0xE81A,  # sunny 晴
-        "P": 0xF172,  # partly_cloudy_day 少云
-        "O": 0xF15C,  # cloud 阴/多云
-        "R": 0xF176,  # rainy 雨
-        "W": 0xE2CD,  # weather_snowy 雪
-        "T": 0xEBDB,  # thunderstorm 雷
-        "G": 0xE818,  # foggy 雾霾
-        "B": 0xEA0B,  # bolt 身体电量（备用）
-        "C": 0xEF55,  # local_fire_department 卡路里（备用）
-        # 压力四档表情（随值切换）
-        "1": 0xF6A7,  # sentiment_calm 静息 0-25
-        "2": 0xE813,  # sentiment_satisfied 低 26-50
-        "3": 0xE812,  # sentiment_neutral 中 51-75
-        "4": 0xF6A2,  # sentiment_stressed 高 76-100
-    })
+    # 每个分辨率一套（同名字体，代码不用改加载 ID）
+    gen_set(os.path.join(ROOT, "resources-round-260x260", "fonts"), 1.0)      # fr955
+    gen_set(os.path.join(ROOT, "resources-round-454x454", "fonts"), 454 / 260.0)  # fr965 / fr970
