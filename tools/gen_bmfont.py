@@ -236,13 +236,15 @@ ICON_MAP = {
 
 def gen_set(out_dir, s):
     """按缩放系数 s 生成一整套角色命名字体到 out_dir。
-    基准（s=1，对应 260px 屏）：时 92 / 数据 26 / 秒 32 / 图标 22。
+    基准（s=1，对应 260px 屏）：时 76 / 数据 26 / 秒 28 / 图标 22。
+    字体用 Chakra Petch（几何切角，直线为主）—— MIP 屏上曲线锯齿明显少于圆体。
+    Chakra 偏宽，时间字号取 76（非 92）以保证「时+分+秒」整体不越圆界。
     """
     global OUT
     OUT = out_dir
-    gen_text_font("BarlowSemiCondensed-Bold.ttf", round(92 * s), "0123456789", "time")
-    gen_text_font("TitilliumWeb-SemiBold.ttf", round(26 * s), DATA_CHARS, "data")
-    gen_text_font("TitilliumWeb-SemiBold.ttf", round(32 * s), "0123456789", "sec")
+    gen_text_font("ChakraPetch-Bold.ttf", round(76 * s), "0123456789", "time")
+    gen_text_font("ChakraPetch-SemiBold.ttf", round(26 * s), DATA_CHARS, "data")
+    gen_text_font("ChakraPetch-SemiBold.ttf", round(28 * s), "0123456789", "sec")
     gen_material_icons("icons", round(22 * s), ICON_MAP)
 
 

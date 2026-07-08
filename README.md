@@ -57,7 +57,7 @@ monkeydo bin/fr955.prg fr955
 时间、数据、图标都用自制位图字体，而非系统内置字体——这是观感接近商店高分表盘的关键。
 字体由 [`tools/gen_bmfont.py`](tools/gen_bmfont.py) 从开源字体生成（TTF → BMFont `.fnt` + `.png`）：
 
-- 时间：Barlow SemiCondensed Bold　数据：Titillium Web SemiBold（均 SIL OFL）
+- 时间 + 数据：Chakra Petch（几何切角、直线为主，SIL OFL）——直线笔画在 MIP 屏上锯齿远少于圆体
 - 图标：Google Material Symbols Rounded（Apache 2.0）实心字形
 - 3× 超采样渲染 + 针对 MIP 屏的 alpha 就近量化，边缘更干净
 

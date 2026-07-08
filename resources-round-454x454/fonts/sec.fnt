@@ -1,14 +1,14 @@
-info face="TitilliumWeb-SemiBold.ttf" size=-56 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=2,2 outline=0
-common lineHeight=86 base=64 scaleW=332 scaleH=43 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+info face="ChakraPetch-SemiBold.ttf" size=-49 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=2,2 outline=0
+common lineHeight=65 base=49 scaleW=301 scaleH=39 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
 page id=0 file="sec.png"
 chars count=10
-char id=48 x=2 y=2 width=31 height=39 xoffset=0 yoffset=26 xadvance=31 page=0 chnl=15
-char id=49 x=35 y=2 width=31 height=37 xoffset=0 yoffset=27 xadvance=31 page=0 chnl=15
-char id=50 x=68 y=2 width=31 height=38 xoffset=0 yoffset=26 xadvance=31 page=0 chnl=15
-char id=51 x=101 y=2 width=31 height=39 xoffset=0 yoffset=26 xadvance=31 page=0 chnl=15
-char id=52 x=134 y=2 width=31 height=37 xoffset=0 yoffset=27 xadvance=31 page=0 chnl=15
-char id=53 x=167 y=2 width=31 height=38 xoffset=0 yoffset=27 xadvance=31 page=0 chnl=15
-char id=54 x=200 y=2 width=31 height=39 xoffset=0 yoffset=26 xadvance=31 page=0 chnl=15
-char id=55 x=233 y=2 width=31 height=38 xoffset=0 yoffset=27 xadvance=31 page=0 chnl=15
-char id=56 x=266 y=2 width=31 height=39 xoffset=0 yoffset=26 xadvance=31 page=0 chnl=15
-char id=57 x=299 y=2 width=31 height=39 xoffset=0 yoffset=26 xadvance=31 page=0 chnl=15
+char id=48 x=2 y=2 width=31 height=35 xoffset=0 yoffset=14 xadvance=31 page=0 chnl=15
+char id=49 x=35 y=2 width=18 height=35 xoffset=6 yoffset=14 xadvance=31 page=0 chnl=15
+char id=50 x=55 y=2 width=28 height=35 xoffset=1 yoffset=14 xadvance=31 page=0 chnl=15
+char id=51 x=85 y=2 width=29 height=35 xoffset=1 yoffset=14 xadvance=31 page=0 chnl=15
+char id=52 x=116 y=2 width=28 height=35 xoffset=1 yoffset=14 xadvance=31 page=0 chnl=15
+char id=53 x=146 y=2 width=29 height=35 xoffset=1 yoffset=14 xadvance=31 page=0 chnl=15
+char id=54 x=177 y=2 width=30 height=35 xoffset=0 yoffset=14 xadvance=31 page=0 chnl=15
+char id=55 x=209 y=2 width=25 height=35 xoffset=3 yoffset=14 xadvance=31 page=0 chnl=15
+char id=56 x=236 y=2 width=31 height=35 xoffset=0 yoffset=14 xadvance=31 page=0 chnl=15
+char id=57 x=269 y=2 width=30 height=35 xoffset=0 yoffset=14 xadvance=31 page=0 chnl=15
