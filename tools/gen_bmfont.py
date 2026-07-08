@@ -251,6 +251,8 @@ def gen_set(out_dir, s, cfg):
     time_ttf, time_sz, data_ttf, data_sz, sec_sz = cfg
     gen_text_font(time_ttf, round(time_sz * s), "0123456789", "time")
     gen_text_font(data_ttf, round(data_sz * s), DATA_CHARS, "data")
+    # 日期单独一套更大字号（30）：日期行横向空间充裕，放大让字母（尤其 W 的斜画）锯齿更轻
+    gen_text_font(data_ttf, round(30 * s), DATA_CHARS, "date")
     gen_text_font(data_ttf, round(sec_sz * s), "0123456789", "sec")
     gen_material_icons("icons", round(22 * s), ICON_MAP)
 

@@ -40,6 +40,7 @@ class WatchFaceView extends WatchUi.WatchFace {
 
     hidden var _fontTime = null;
     hidden var _fontData = null;
+    hidden var _fontDate = null;
     hidden var _fontSec = null;
     hidden var _fontIcons = null;
 
@@ -78,6 +79,7 @@ class WatchFaceView extends WatchUi.WatchFace {
     function onLayout(dc) {
         _fontTime = WatchUi.loadResource(Rez.Fonts.TimeFont);
         _fontData = WatchUi.loadResource(Rez.Fonts.DataFont);
+        _fontDate = WatchUi.loadResource(Rez.Fonts.DateFont);
         _fontSec = WatchUi.loadResource(Rez.Fonts.SecondsFont);
         _fontIcons = WatchUi.loadResource(Rez.Fonts.IconsFont);
 
@@ -91,6 +93,13 @@ class WatchFaceView extends WatchUi.WatchFace {
         // 时+分+秒作为整体水平居中；字体宽度已随屏放大，坐标偏移用 px() 缩放
         var total = _digitW2 * 2 + px(TIME_GAP) + px(4) + _secClipW;
         var left = _cx - total / 2;
+        // 时数字左边距太小时（Chakra 偏宽），用秒右侧的圆界余量把整块右移，避免时贴左缘
+        var minLeft = px(18);
+        if (left < minLeft) {
+            var slack = (_cx + px(125)) - (left + total);
+            var need = minLeft - left;
+            left += (need < slack ? need : slack);
+        }
         if (left < px(8)) {
             left = px(8);
         }
@@ -155,18 +164,18 @@ class WatchFaceView extends WatchUi.WatchFace {
         var s1 = _weekdays[info.day_of_week - 1] + " ";
         var s2 = info.day.format("%d");
         var s3 = " " + _months[info.month - 1];
-        var w1 = dc.getTextWidthInPixels(s1, _fontData);
-        var w2 = dc.getTextWidthInPixels(s2, _fontData);
-        var w3 = dc.getTextWidthInPixels(s3, _fontData);
+        var w1 = dc.getTextWidthInPixels(s1, _fontDate);
+        var w2 = dc.getTextWidthInPixels(s2, _fontDate);
+        var w3 = dc.getTextWidthInPixels(s3, _fontDate);
         var dx = _cx - (w1 + w2 + w3) / 2;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx, px(160), _fontData, s1,
+        dc.drawText(dx, px(160), _fontDate, s1,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1, px(160), _fontData, s2,
+        dc.drawText(dx + w1, px(160), _fontDate, s2,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1 + w2, px(160), _fontData, s3,
+        dc.drawText(dx + w1 + w2, px(160), _fontDate, s3,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // ── 底部三格：天气 | 步数 | 压力（无分隔线）
