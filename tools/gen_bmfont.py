@@ -234,21 +234,33 @@ ICON_MAP = {
 }
 
 
-def gen_set(out_dir, s):
-    """按缩放系数 s 生成一整套角色命名字体到 out_dir。
-    基准（s=1，对应 260px 屏）：时 76 / 数据 26 / 秒 28 / 图标 22。
-    字体用 Chakra Petch（几何切角，直线为主）—— MIP 屏上曲线锯齿明显少于圆体。
-    Chakra 偏宽，时间字号取 76（非 92）以保证「时+分+秒」整体不越圆界。
-    """
+# 两款表盘的字体配置：(时间字体, 时间基准字号, 数据/秒字体, 数据字号, 秒字号)
+# 基准字号对应 260px 屏；gen_set 按缩放系数 s 缩放（454 屏 s=1.746）
+FACES = {
+    # TEMPO：圆体（Barlow SemiCondensed + Titillium Web），初版气质
+    "tempo": ("BarlowSemiCondensed-Bold.ttf", 92, "TitilliumWeb-SemiBold.ttf", 26, 32),
+    # PULSE：棱角（Chakra Petch），直线为主，MIP 屏锯齿更少；偏宽故时间取 76
+    "pulse": ("ChakraPetch-Bold.ttf", 76, "ChakraPetch-SemiBold.ttf", 26, 28),
+}
+
+
+def gen_set(out_dir, s, cfg):
+    """按缩放系数 s、字体配置 cfg 生成一整套角色命名字体（time/data/sec/icons）到 out_dir。"""
     global OUT
     OUT = out_dir
-    gen_text_font("ChakraPetch-Bold.ttf", round(76 * s), "0123456789", "time")
-    gen_text_font("ChakraPetch-SemiBold.ttf", round(26 * s), DATA_CHARS, "data")
-    gen_text_font("ChakraPetch-SemiBold.ttf", round(28 * s), "0123456789", "sec")
+    time_ttf, time_sz, data_ttf, data_sz, sec_sz = cfg
+    gen_text_font(time_ttf, round(time_sz * s), "0123456789", "time")
+    gen_text_font(data_ttf, round(data_sz * s), DATA_CHARS, "data")
+    gen_text_font(data_ttf, round(sec_sz * s), "0123456789", "sec")
     gen_material_icons("icons", round(22 * s), ICON_MAP)
 
 
 if __name__ == "__main__":
-    # 每个分辨率一套（同名字体，代码不用改加载 ID）
-    gen_set(os.path.join(ROOT, "resources-round-260x260", "fonts"), 1.0)      # fr955
-    gen_set(os.path.join(ROOT, "resources-round-454x454", "fonts"), 454 / 260.0)  # fr965 / fr970
+    import sys
+    # 每款表盘 × 每个分辨率各一套（同名字体，代码不用改加载 ID）
+    targets = sys.argv[1:] if len(sys.argv) > 1 else list(FACES.keys())
+    for app in targets:
+        cfg = FACES[app]
+        gen_set(os.path.join(ROOT, app, "resources-round-260x260", "fonts"), 1.0, cfg)          # fr955
+        gen_set(os.path.join(ROOT, app, "resources-round-454x454", "fonts"), 454 / 260.0, cfg)  # fr965/970
+        print(f"[{app}] fonts generated")

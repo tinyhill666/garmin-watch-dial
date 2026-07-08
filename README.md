@@ -1,16 +1,23 @@
-# TEMPO — Garmin 运动表盘
+# Garmin 运动表盘 · TEMPO & PULSE
 
-一款为 Garmin Forerunner 系列设计的数据型表盘，用 **Connect IQ SDK** + **Monkey C** 开发。
+为 Garmin Forerunner 系列设计的数据型表盘，用 **Connect IQ SDK** + **Monkey C** 开发。
 双色大字时间为视觉主角，配合心率、电量、步数、天气、压力等日常数据，图标随数值变化。
 
-<p align="center">
-  <img src="docs/preview-fr955.png" width="300" alt="fr955 预览" />
-  &nbsp;&nbsp;
-  <img src="docs/preview-fr970.png" width="300" alt="fr970 预览" />
-</p>
-<p align="center"><em>左：Forerunner 955（260×260 MIP）　右：Forerunner 970（454×454 AMOLED）</em></p>
+同一套布局、两款字体气质，是**两个独立 app**（各自 app id，可同时装到表上）：
 
-## 功能
+| | 字体气质 | 说明 |
+|---|---|---|
+| **TEMPO** | 圆体（Barlow SemiCondensed + Titillium Web） | 初版，时间大字更高 |
+| **PULSE** | 棱角（Chakra Petch） | 直线为主，MIP 屏上锯齿更少 |
+
+<p align="center">
+  <img src="docs/preview-tempo.png" width="300" alt="TEMPO（圆体）fr955 预览" />
+  &nbsp;&nbsp;
+  <img src="docs/preview-pulse.png" width="300" alt="PULSE（棱角）fr970 预览" />
+</p>
+<p align="center"><em>左：TEMPO / fr955（260×260 MIP）　右：PULSE / fr970（454×454 AMOLED）</em></p>
+
+## 功能（两款一致）
 
 - **时间**：时分双色大字（时白、分跟随主题色），秒以小字缀于右下，低功耗下每秒仅局部刷新
 - **心率**：实时心率，无值时回退到最近一次历史采样
@@ -34,48 +41,62 @@
 
 ## 构建与运行
 
-需要 Connect IQ SDK 9.1.0+、OpenJDK，以及开发者签名密钥。
+需要 Connect IQ SDK 9.1.0+、OpenJDK，以及开发者签名密钥。用 `run.sh` 最省事：
+
+```bash
+./run.sh              # 构建并运行 PULSE / fr955
+./run.sh tempo        # TEMPO / fr955
+./run.sh pulse fr970  # PULSE / fr970（高分屏）
+```
+
+手动构建（在对应 app 目录下）：
 
 ```bash
 export SDK_HOME="$HOME/Library/Application Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-9.1.0-2026-03-09-6a872a80b"
 export JAVA_HOME="/opt/homebrew/opt/openjdk"
 export PATH="$JAVA_HOME/bin:$SDK_HOME/bin:$PATH"
+KEY="$HOME/Library/Application Support/Garmin/ConnectIQ/Keys/developer_key.der"
 
-# 构建（换 -d fr970 编译高分屏版本）
-monkeyc -o bin/fr955.prg -d fr955 -f monkey.jungle \
-  -y "$HOME/Library/Application Support/Garmin/ConnectIQ/Keys/developer_key.der"
-
-# 启动模拟器并加载
-connectiq
-monkeydo bin/fr955.prg fr955
+monkeyc -o pulse/bin/fr955.prg -d fr955 -f pulse/monkey.jungle -y "$KEY"
+connectiq && monkeydo pulse/bin/fr955.prg fr955
 ```
-
-也可以直接 `./run.sh` 一键构建 + 启动模拟器 + 加载。
 
 ## 自定义字体
 
 时间、数据、图标都用自制位图字体，而非系统内置字体——这是观感接近商店高分表盘的关键。
-字体由 [`tools/gen_bmfont.py`](tools/gen_bmfont.py) 从开源字体生成（TTF → BMFont `.fnt` + `.png`）：
+字体由 [`tools/gen_bmfont.py`](tools/gen_bmfont.py) 从开源字体生成（TTF → BMFont `.fnt` + `.png`），
+一次为两款 app × 两个分辨率共 4 套：
 
-- 时间 + 数据：Chakra Petch（几何切角、直线为主，SIL OFL）——直线笔画在 MIP 屏上锯齿远少于圆体
+- **TEMPO**：Barlow SemiCondensed Bold（时）+ Titillium Web SemiBold（数据），均 SIL OFL
+- **PULSE**：Chakra Petch（几何切角、直线为主，SIL OFL）——直线笔画在 MIP 屏上锯齿远少于圆体
 - 图标：Google Material Symbols Rounded（Apache 2.0）实心字形
 - 3× 超采样渲染 + 针对 MIP 屏的 alpha 就近量化，边缘更干净
 
+```bash
+python3 tools/gen_bmfont.py           # 两款都生成
+python3 tools/gen_bmfont.py pulse     # 只生成某一款
+```
+
 字体源文件不入库（`design/fonts-src/` 已 gitignore，其中 Material Symbols 可变字体约 14MB），
-重新生成前按 [`CLAUDE.md`](CLAUDE.md) 里的命令下载 TTF，再运行 `python3 tools/gen_bmfont.py`。
+重新生成前按 [`CLAUDE.md`](CLAUDE.md) 里的命令下载 TTF。
 
 ## 目录结构
 
 ```
-source/                     Monkey C 源码（App 入口 + 表盘 View）
-resources/                  字符串、设置、启动图标
-resources-round-260x260/    fr955 字体（260 尺寸）
-resources-round-454x454/    fr965 / fr970 字体（454 尺寸）
-tools/gen_bmfont.py         位图字体生成器
+tempo/                      TEMPO app（圆体）
+pulse/                      PULSE app（棱角）
+  manifest.xml              各自独立的 app id 与名字
+  monkey.jungle
+  source/                   Monkey C 源码（两款相同：分辨率无关、按字体 ID 加载）
+  resources/                字符串、设置、启动图标
+  resources-round-260x260/  fr955 字体
+  resources-round-454x454/  fr965 / fr970 字体
+tools/gen_bmfont.py         位图字体生成器（两款字体配置见 FACES）
 design/                     设计规格、能力简报、参考图、开源调研
+awesome-garmin-face.md      精选开源表盘与开发资源
 ```
 
 ## 许可
 
-内置字体分别遵循 SIL OFL（Barlow Condensed / Titillium Web）与 Apache 2.0（Material Symbols Rounded），
+内置字体遵循 SIL OFL（Barlow / Titillium Web / Chakra Petch）与 Apache 2.0（Material Symbols Rounded），
 均为可自由分发的开源许可。

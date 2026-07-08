@@ -4,7 +4,14 @@
 
 ## 项目概述
 
-Garmin 表盘项目，使用 **Connect IQ SDK** + **Monkey C** 语言开发，当前适配设备为 **fr955**。
+Garmin 表盘项目，使用 **Connect IQ SDK** + **Monkey C** 语言开发，适配 fr955 / fr965 / fr970。
+
+**仓库含两个独立 app（各自 app id、名字、字体，可同时装到表上）：**
+- `tempo/` — **TEMPO**，圆体（Barlow SemiCondensed + Titillium Web），app id `75aa1bcea6f64afd96d1b4bed850f4fb`
+- `pulse/` — **PULSE**，棱角（Chakra Petch，MIP 屏锯齿更少），app id `b01353bcaaa04f7380a24d38a5f4b54c`
+
+两者**源码完全相同**（分辨率无关、按字体 ID 加载），只差字体文件和 manifest。改绘制逻辑要**同步改两边的 `source/`**。
+构建/运行用 `./run.sh [pulse|tempo] [设备]`。字体两款配置见 `tools/gen_bmfont.py` 的 `FACES`。
 
 ## 进度记录（2026-07-02）
 
@@ -92,12 +99,13 @@ export SDK_HOME="$HOME/Library/Application Support/Garmin/ConnectIQ/Sdks/connect
 export JAVA_HOME="/opt/homebrew/opt/openjdk"
 export PATH="$JAVA_HOME/bin:$SDK_HOME/bin:$PATH"
 
-# 构建
-monkeyc -o bin/fr955.prg -d fr955 -f monkey.jungle -y "$HOME/Library/Application Support/Garmin/ConnectIQ/Keys/developer_key.der"
+# 构建（在 app 目录下；换 tempo/ 或 -d fr970）
+monkeyc -o pulse/bin/fr955.prg -d fr955 -f pulse/monkey.jungle -y "$HOME/Library/Application Support/Garmin/ConnectIQ/Keys/developer_key.der"
 
 # 启动模拟器 + 运行
 connectiq
-monkeydo bin/fr955.prg fr955
+monkeydo pulse/bin/fr955.prg fr955
+# 或一键：./run.sh pulse fr955
 ```
 
 ## manifest.xml 要求
@@ -105,7 +113,7 @@ monkeydo bin/fr955.prg fr955
 - `id` 必须是 **32 位十六进制字符串**（用 `uuidgen | tr -d '-'` 生成）
 - `name` 必须是字符串资源引用（如 `@Strings.AppName`），不能是字面量
 - 不支持 `minHeight` 属性（SDK 9.1.0 验证报错）
-- 当前 app id：`75aa1bcea6f64afd96d1b4bed850f4fb`
+- app id：TEMPO `75aa1bcea6f64afd96d1b4bed850f4fb` / PULSE `b01353bcaaa04f7380a24d38a5f4b54c`（两个 app 必须不同 id）
 
 ## Monkey C 核心要点
 
