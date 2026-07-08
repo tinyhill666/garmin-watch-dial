@@ -2,6 +2,7 @@
     <font id="TimeFont" filename="time.fnt" antialias="true"/>
     <font id="DataFont" filename="data.fnt" antialias="true"/>
     <font id="DateFont" filename="date.fnt" antialias="true"/>
+    <font id="SmallFont" filename="small.fnt" antialias="true"/>
     <font id="SecondsFont" filename="sec.fnt" antialias="true"/>
     <font id="IconsFont" filename="icons.fnt" antialias="true"/>
 </fonts>

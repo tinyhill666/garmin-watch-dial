@@ -20,6 +20,7 @@ class WatchFaceView extends WatchUi.WatchFace {
     const COLOR_ORANGE = 0xFF5500;  // 火焰图标
     const COLOR_DIM = 0xAAAAAA;     // 秒、电池描边、无值占位
     const COLOR_GREEN = 0x55FF00;   // 电池高电量（语义绿，独立于主题色）
+    const COLOR_TRACK = 0x555555;   // 步数进度弧未完成段（暗轨道）
 
     // 主题色可选调色板（全部 RGB222 合法），索引对应 settings.xml 的 listEntry value
     hidden var _palette = [
@@ -41,6 +42,7 @@ class WatchFaceView extends WatchUi.WatchFace {
     hidden var _fontTime = null;
     hidden var _fontData = null;
     hidden var _fontDate = null;
+    hidden var _fontSmall = null;
     hidden var _fontSec = null;
     hidden var _fontIcons = null;
 
@@ -80,6 +82,7 @@ class WatchFaceView extends WatchUi.WatchFace {
         _fontTime = WatchUi.loadResource(Rez.Fonts.TimeFont);
         _fontData = WatchUi.loadResource(Rez.Fonts.DataFont);
         _fontDate = WatchUi.loadResource(Rez.Fonts.DateFont);
+        _fontSmall = WatchUi.loadResource(Rez.Fonts.SmallFont);
         _fontSec = WatchUi.loadResource(Rez.Fonts.SecondsFont);
         _fontIcons = WatchUi.loadResource(Rez.Fonts.IconsFont);
 
@@ -169,18 +172,35 @@ class WatchFaceView extends WatchUi.WatchFace {
         var w3 = dc.getTextWidthInPixels(s3, _fontDate);
         var dx = _cx - (w1 + w2 + w3) / 2;
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx, px(160), _fontDate, s1,
+        dc.drawText(dx, px(156), _fontDate, s1,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1, px(160), _fontDate, s2,
+        dc.drawText(dx + w1, px(156), _fontDate, s2,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dx + w1 + w2, px(160), _fontDate, s3,
+        dc.drawText(dx + w1 + w2, px(156), _fontDate, s3,
             Graphics.TEXT_JUSTIFY_LEFT | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // ── 底部三格：天气 | 步数 | 压力（无分隔线）
-        // 整体上移避开圆屏下弧；两侧格中心内收至 68/192（往圆屏更宽处）避免下角被切；
-        // 步数格（居中，可达 5 位）单独下移 6px 与两侧错落
+        // ── 底部：步数目标进度弧（沿下沿）+ 三格数据（天气|步数|压力，小字号）
+        var steps = (actInfo != null && actInfo.steps != null) ? actInfo.steps : 0;
+        var goal = (actInfo != null && actInfo.stepGoal != null && actInfo.stepGoal > 0)
+                   ? actInfo.stepGoal : 10000;
+
+        // 进度弧：底部 230°–310°（0°=3点钟，逆时针），灰轨道 + 主题色进度
+        dc.setPenWidth(pw(6));
+        dc.setColor(COLOR_TRACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawArc(_cx, _cx, px(118), Graphics.ARC_COUNTER_CLOCKWISE, 230, 310);
+        var sweep = 80 * steps / goal;
+        if (sweep > 80) {
+            sweep = 80;
+        }
+        if (sweep > 0) {
+            dc.setColor(_accent, Graphics.COLOR_TRANSPARENT);
+            dc.drawArc(_cx, _cx, px(118), Graphics.ARC_COUNTER_CLOCKWISE, 230, 230 + sweep);
+        }
+        dc.setPenWidth(1);
+
+        // 三格：图标 y=172，数值 y=204（小字号 22，三项同基线）
         // 格1：天气（图标随天气状况切换 + 温度）
         var tempStr = "--°";
         var wIcon = "O";
@@ -192,30 +212,29 @@ class WatchFaceView extends WatchUi.WatchFace {
             wIcon = weatherIcon(cond.condition);
         }
         dc.setColor(weatherColor(wIcon), Graphics.COLOR_TRANSPARENT);
-        dc.drawText(px(68), px(178), _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(px(68), px(172), _fontIcons, wIcon, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(px(68), px(212), _fontData, tempStr,
+        dc.drawText(px(68), px(204), _fontSmall, tempStr,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
-        // 格2：步数（足迹 + 完整数值；居中格单独下移 6px 与两侧错落）
-        var steps = (actInfo != null && actInfo.steps != null) ? actInfo.steps : 0;
+        // 格2：步数（足迹 + 完整数值）
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(_cx, px(184), _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(_cx, px(218), _fontData, steps.format("%d"),
+        dc.drawText(_cx, px(172), _fontIcons, "F", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(_cx, px(204), _fontSmall, steps.format("%d"),
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         // 格3：压力值（图标随四档切换：静息/低/中/高）
         var stress = getStress();
         if (stress == null) {
             dc.setColor(COLOR_DIM, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(px(192), px(178), _fontIcons, "3", Graphics.TEXT_JUSTIFY_CENTER);
-            dc.drawText(px(192), px(212), _fontData, "--",
+            dc.drawText(px(192), px(172), _fontIcons, "3", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(px(192), px(204), _fontSmall, "--",
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         } else {
             dc.setColor(stressColor(stress), Graphics.COLOR_TRANSPARENT);
-            dc.drawText(px(192), px(178), _fontIcons, stressIcon(stress), Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(px(192), px(172), _fontIcons, stressIcon(stress), Graphics.TEXT_JUSTIFY_CENTER);
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(px(192), px(212), _fontData, stress.format("%d"),
+            dc.drawText(px(192), px(204), _fontSmall, stress.format("%d"),
                 Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
