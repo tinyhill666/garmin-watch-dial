@@ -9,3 +9,6 @@
 # Font source files — downloaded from Google Fonts / Material Symbols.
 # See CLAUDE.md for the exact files needed and their source URLs.
 design/fonts-src/
+
+# Store packages (produced by package.sh)
+*.iq
